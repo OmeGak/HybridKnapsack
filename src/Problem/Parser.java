@@ -1,13 +1,19 @@
 package Problem;
 
+/**
+ * Class for reading files containing knapsack problems.
+ * 
+ * @author omegak
+ */
 public class Parser {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
+//	/**
+//	 * Parses a 
+//	 * 
+//	 * @
+//	 * @return
+//	 */
+//	public Knapsack parse(String instance) {
+//		return new Knapsack();
+//	}
 }
