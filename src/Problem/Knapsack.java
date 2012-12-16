@@ -9,6 +9,9 @@ import java.util.ArrayList;
  */
 public class Knapsack {
 	
+	/** Value for invalid solutions. */
+	static private int INVALID = -1;
+	
 	/** Total capacity of the knapsack. */
 	private int capacity;
 	
@@ -52,6 +55,19 @@ public class Knapsack {
 		// Creates the lists
 		insertedElements = new ArrayList<Element>(_insertedElements);
 		notInsertedElements = new ArrayList<Element>(_notInsertedElements);
+	}
+	
+	/**
+	 * Evaluates the profit of the solution. 
+	 * 
+	 * @return the profit of the solution. Negative for invalid solutions.
+	 */
+	public int evaluate() {
+		if (getTotalWeight() <= capacity) {
+			return getTotalValue();
+		} else {
+			return INVALID;
+		}
 	}
 	
 	/**
@@ -129,11 +145,13 @@ public class Knapsack {
 	 * @return a new solution.
 	 */
 	public Knapsack insertElement(int index) {
-		// Creates new lists of elements 
-		ArrayList<Element> nextInsertedElements = new ArrayList<Element>();
-		ArrayList<Element> nextNotInsertedElements = new ArrayList<Element>();
+		// TODO exception for invalid index
 		
-		// Updates the lists
+		// Creates new lists of elements 
+		ArrayList<Element> nextInsertedElements = new ArrayList<Element>(insertedElements);
+		ArrayList<Element> nextNotInsertedElements = new ArrayList<Element>(notInsertedElements);
+		
+		// Updates the new lists
 		Element insertion = nextNotInsertedElements.remove(index); 
 		nextInsertedElements.add(insertion);
 		

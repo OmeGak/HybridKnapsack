@@ -7,23 +7,11 @@ package Problem;
  */
 public class Element {
 	
-	/** The index of the problem. */
-	int index;
-	
 	/** The value this element adds to the knapsack. */
 	int value;
 	
 	/** The weight of the element. */
 	int weight;
-	
-	/** 
-	 * Constructor of the class.
-	 * 
-	 * @param _index The index of the element.
-	 */
-	public Element(int _index) {
-		index = _index;
-	}
 	
 	/**
 	 * Returns the value of the element.
