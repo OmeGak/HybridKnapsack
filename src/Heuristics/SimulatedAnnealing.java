@@ -1,6 +1,9 @@
 package Heuristics;
 
 public class SimulatedAnnealing {
+	
+	private int temperature;
+	
 
 	/**
 	 * @param args
