@@ -2,14 +2,27 @@ package Heuristics;
 
 import java.util.ArrayList;
 
+import Problem.Knapsack;
 import Problem.Solution;
 
 public class SimulatedAnnealing {
-	
+	/**
+	 * Global variables.
+	 */
 	private int temperature, freezingT, nIter, MaxIter;
-	private Solution BestSolution, ActualSolution;
-	private ArrayList<Solution> Solutions;
-
+	private Knapsack BestSolution, ActualSolution;
+	private ArrayList<Knapsack> Solutions;
+	private Knapsack knapsack;
+	
+	public SimulatedAnnealing(){
+		
+	}
+	
+	public SimulatedAnnealing(int t, int fT, int nI, int Max, Knapsack k){
+		
+	}
+	
+	
 	/**
 	 * @param args
 	 */
