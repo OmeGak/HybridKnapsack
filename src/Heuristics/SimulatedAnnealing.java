@@ -18,8 +18,8 @@ public class SimulatedAnnealing {
 	 * The integer type variables are initialized to 0.
 	 */
 	private int temperature, freezingT, nIter, MaxIter = 0;
-	private Knapsack BestSolution, ActualSolution;
-	private ArrayList<Knapsack> Solutions;
+	private Knapsack bestSolution, actualSolution;
+	private ArrayList<Knapsack> solutions;
 	private Knapsack knapsack;
 	
 	/**
@@ -41,7 +41,7 @@ public class SimulatedAnnealing {
 	/**
 	 * Simulated Annealing Algorithm method
 	 */
-	private void SAAlgorithm (){
+	public Knapsack SAAlgorithm (){
 		Element minE = new Element();
 		minE = knapsack.getNotInsertedElements().get(0); /*Random value*/
 		
@@ -58,14 +58,17 @@ public class SimulatedAnnealing {
 				 */
 				if(knapsack.getTotalWeight() + minE.getWeight() <= knapsack.getCapacity()){
 					knapsack.getInsertedElements().add(minE);
-					Solutions.add(knapsack);
+					solutions.add(knapsack);
+					actualSolution = knapsack;
 					knapsack.getNotInsertedElements().remove(minE);
 				}else{
 					break;
 				}
 				}
 			}
+			
 		}
+		return actualSolution;
 		
 	}
 
