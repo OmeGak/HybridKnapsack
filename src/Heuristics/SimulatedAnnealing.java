@@ -17,7 +17,7 @@ public class SimulatedAnnealing {
 	 * Global variables.
 	 * The integer type variables are initialized to 0.
 	 */
-	private int temperature, freezingT, nIter, MaxIter = 0;
+	private int temperature, freezingT, nIter, MaxIter = 0;	// TODO one declaration per line
 	private Knapsack bestSolution, actualSolution;
 	private ArrayList<Knapsack> solutions;
 	private Knapsack knapsack;
@@ -71,14 +71,4 @@ public class SimulatedAnnealing {
 		return actualSolution;
 		
 	}
-
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

@@ -1,13 +1,10 @@
 package Heuristics;
 
+/**
+ * TODO add javadoc
+ * @author omegak
+ *
+ */
 public class TabuSearch {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
