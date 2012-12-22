@@ -3,7 +3,8 @@ package Problem;
 import java.util.ArrayList;
 
 /**
- * Class to store a instance of the knapsack problem.
+ * Class to store a instance of the knapsack problem. It handles both the inserted and not inserted elements as well as
+ * the capacity of the knapsack and the optimal solution value for comparison purposes.
  * 
  * @author omegak
  */
@@ -58,7 +59,7 @@ public class Knapsack {
 	}
 	
 	/**
-	 * Evaluates the profit of the solution. 
+	 * Evaluation function that returns the profit of the solution. 
 	 * 
 	 * @return the profit of the solution. Negative for invalid solutions.
 	 */
@@ -77,26 +78,6 @@ public class Knapsack {
 	 */
 	public int getCapacity() {
 		return capacity;
-	}
-	
-	/**
-	 * Returns the list of inserted elements.
-	 * TODO remove?
-	 * 
-	 * @return the list of inserted elements.
-	 */
-	public ArrayList<Element> getInsertedElements() {
-		return insertedElements;
-	}
-	
-	/**
-	 * Returns the list of not inserted elements.
-	 * TODO remove?
-	 * 
-	 * @return the list of not possible elements.
-	 */
-	public ArrayList<Element> getNotInsertedElements() {
-		return notInsertedElements;
 	}
 	
 	/**
@@ -139,13 +120,18 @@ public class Knapsack {
 	}
 	
 	/**
-	 * Creates a new solution inserting the {@link Element} object referenced by {@link #index};
+	 * Creates a new {@link Knapsack} object moving the {@link Element} object referenced by {@link #index} from not 
+	 * inserted to inserted.
 	 * 
 	 * @param index The index referencing the {@link Element} object to be inserted.
-	 * @return a new solution.
+	 * @return a new {@link Knapsack} object.
+	 * @throws IndexOutOfBoundsException When the index is  
 	 */
-	public Knapsack insertElement(int index) {
-		// TODO exception for invalid index
+	public Knapsack insertElement(int index) throws IndexOutOfBoundsException {
+		// Exception check
+		if (index >= notInsertedElements.size()) {
+			throw new IndexOutOfBoundsException();
+		}
 		
 		// Creates new lists of elements 
 		ArrayList<Element> nextInsertedElements = new ArrayList<Element>(insertedElements);
