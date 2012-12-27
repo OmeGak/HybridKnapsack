@@ -9,7 +9,6 @@ import Problem.Knapsack;
  * Simulated Annealing Class, which represent the algorithm and the solutions.
  * 
  * @author Oxy
- *
  */
 
 public class SimulatedAnnealing {
@@ -43,31 +42,32 @@ public class SimulatedAnnealing {
 	 */
 	public Knapsack SAAlgorithm (){
 		Element minE = new Element();
-		minE = knapsack.getNotInsertedElements().get(0); /*Random value*/
-		
-		
-		/*Looking for the min element in the instance*/
-		for(int i = 0; i < knapsack.getNotInsertedElements().size(); i++){
-			for(int j = 0; j < knapsack.getNotInsertedElements().size(); j++){
-				
-				if(minE.getWeight() >  knapsack.getNotInsertedElements().get(j).getWeight()){
-					minE = knapsack.getNotInsertedElements().get(j);
-				
-				/*
-				 * If we can put into the knapsack
-				 */
-				if(knapsack.getTotalWeight() + minE.getWeight() <= knapsack.getCapacity()){
-					knapsack.getInsertedElements().add(minE);
-					solutions.add(knapsack);
-					actualSolution = knapsack;
-					knapsack.getNotInsertedElements().remove(minE);
-				}else{
-					break;
-				}
-				}
-			}
-			
-		}
+		// TODO addapt to knapsack changes
+//		minE = knapsack.getNotInsertedElements().get(0); /*Random value*/
+//		
+//		
+//		/*Looking for the min element in the instance*/
+//		for(int i = 0; i < knapsack.getNotInsertedElements().size(); i++){
+//			for(int j = 0; j < knapsack.getNotInsertedElements().size(); j++){
+//				
+//				if(minE.getWeight() >  knapsack.getNotInsertedElements().get(j).getWeight()){
+//					minE = knapsack.getNotInsertedElements().get(j);
+//				
+//				/*
+//				 * If we can put into the knapsack
+//				 */
+//				if(knapsack.getTotalWeight() + minE.getWeight() <= knapsack.getCapacity()){
+//					knapsack.getInsertedElements().add(minE);
+//					solutions.add(knapsack);
+//					actualSolution = knapsack;
+//					knapsack.getNotInsertedElements().remove(minE);
+//				}else{
+//					break;
+//				}
+//				}
+//			}
+//			
+//		}
 		return actualSolution;
 		
 	}
