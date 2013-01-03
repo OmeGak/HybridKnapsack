@@ -8,10 +8,21 @@ package Problem;
 public class Element {
 	
 	/** The value this element adds to the knapsack. */
-	int value;
+	private final int value;
 	
 	/** The weight of the element. */
-	int weight;
+	private final int weight;
+	
+	/**
+	 * Constructor for the class. It sets the parameters.
+	 * 
+	 * @param value The value of the element.
+	 * @param weight The weight of the element.
+	 */
+	public Element(int value, int weight) {
+		this.value = value;
+		this.weight = weight;
+	}
 	
 	/**
 	 * Returns the value of the element.
@@ -29,23 +40,5 @@ public class Element {
 	 */
 	public int getWeight() {
 		return weight;
-	}
-	
-	/**
-	 * Sets the value of the element.
-	 * 
-	 * @param _value The value of the element.
-	 */
-	public void setValue(int _value) {
-		value = _value;
-	}
-	
-	/**
-	 * Sets the weight of the element.
-	 * 
-	 * @param _weight The weight of the element.
-	 */
-	public void setWeight(int _weight) {
-		weight = _weight;
 	}
 }

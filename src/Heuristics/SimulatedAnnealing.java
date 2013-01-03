@@ -41,8 +41,8 @@ public class SimulatedAnnealing {
 	 * Simulated Annealing Algorithm method
 	 */
 	public Knapsack SAAlgorithm (){
-		Element minE = new Element();
 		// TODO addapt to knapsack changes
+//		Element minE = new Element();
 //		minE = knapsack.getNotInsertedElements().get(0); /*Random value*/
 //		
 //		

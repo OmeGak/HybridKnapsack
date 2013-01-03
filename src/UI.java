@@ -71,14 +71,21 @@ public class UI {
 	 * @param instance The instance to be solved.
 	 */
 	private static void launchExecution(File instance) {
-		// TODO launch solution
-		System.out.println("Parsing file " + instance.getName());
-//		Knapsack knapsack = Parser.parse(instance);
-//		new Coordinator(knapsack).solve();
+		Knapsack knapsack;
+		
+		try {
+			System.out.println("Parsing file " + instance.getName());
+			knapsack = Parser.parse(instance);
+			System.out.println("Solving...");
+			new Coordinator(knapsack).solve();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
-	 * Tries to load from a given path the instances of the knapsack problem are located.  
+	 * Tries to load the instances of the knapsack problem from a given path.  
 	 * 
 	 * @param path The given path.
 	 * @throws IOException When there is no such directory.
@@ -105,6 +112,8 @@ public class UI {
 	
 	/**
 	 * Shows the prompt awaiting for next action to perform and validates input until it's a correct one.
+	 * 
+	 * @return A valid option.
 	 */
 	private static int prompt() {
 		int input = INVALID_OPTION;
