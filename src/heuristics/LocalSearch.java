@@ -1,11 +1,11 @@
-package metaheuristics;
+package heuristics;
 
 /**
  * TODO add javadoc
  * @author omegak
  *
  */
-public class LocalSearch extends Metaheuristic {
+public class LocalSearch extends Heuristic {
 
 	/**
 	 * TODO doc

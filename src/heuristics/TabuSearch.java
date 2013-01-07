@@ -1,11 +1,11 @@
-package metaheuristics;
+package heuristics;
 
 /**
  * TODO add javadoc
  * @author omegak
  *
  */
-public class TabuSearch extends Metaheuristic {
+public class TabuSearch extends Heuristic {
 
 
 	/**

@@ -1,4 +1,4 @@
-package metaheuristics;
+package heuristics;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import problem.Knapsack;
  * @author Oxy
  */
 
-public class SimulatedAnnealing extends Metaheuristic {
+public class SimulatedAnnealing extends Heuristic {
 	/**
 	 * Global variables.
 	 * The integer type variables are initialized to 0.
