@@ -1,4 +1,4 @@
-package Problem;
+package problem;
 
 import java.util.ArrayList;
 
@@ -11,22 +11,36 @@ import java.util.ArrayList;
 public class Knapsack {
 	
 	/** Value for invalid solutions. */
-	static private int INVALID = -1;
+	static private final int INVALID = -1;
 	
 	/** Total capacity of the knapsack. */
-	private int capacity;
+	private final int capacity;
 	
 	/** Best possible solution of the instance. */
-	private int optimalValue;
+	private final int optimalValue;
 	
 	/** List of inserted elements. */
-	private ArrayList<Element> insertedElements;
+	private final ArrayList<Element> insertedElements;
 	
 	/** List of not inserted elements. */
-	private ArrayList<Element> notInsertedElements;
+	private final ArrayList<Element> notInsertedElements;
 	
 	/**
-	 * Constructor for the instance.
+	 * Constructor that copies a given {@link Knapsack} object and ensures inalterability. 
+	 * 
+	 * @param knapsack The given {@link Knapsack} object to be copied.
+	 */
+	public Knapsack(Knapsack knapsack) {
+		capacity = knapsack.capacity;
+		optimalValue = knapsack.optimalValue;
+		
+		// Creates the lists
+		insertedElements = new ArrayList<Element>();
+		notInsertedElements = new ArrayList<Element>(knapsack.notInsertedElements);
+	}
+	
+	/**
+	 * Constructor of the class that ensures inalterability.
 	 * 
 	 * @param _capacity Total capacity of the knapsack.
 	 * @param _optimalValue Best possible solution of the instance.
@@ -42,7 +56,7 @@ public class Knapsack {
 	}
 	
 	/**
-	 * Constructor for the instance.
+	 * Constructor of the class that ensures inalterability.
 	 * 
 	 * @param _capacity Total capacity of the knapsack.
 	 * @param _optimalValue Best possible solution of the instance.
