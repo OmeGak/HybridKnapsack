@@ -1,9 +1,10 @@
-package Heuristics;
+package metaheuristics;
 
 import java.util.ArrayList;
 
-import Problem.Element;
-import Problem.Knapsack;
+import problem.Element;
+import problem.Knapsack;
+
 
 /**
  * Simulated Annealing Class, which represent the algorithm and the solutions.
@@ -11,7 +12,7 @@ import Problem.Knapsack;
  * @author Oxy
  */
 
-public class SimulatedAnnealing {
+public class SimulatedAnnealing extends Metaheuristic {
 	/**
 	 * Global variables.
 	 * The integer type variables are initialized to 0.
@@ -20,6 +21,10 @@ public class SimulatedAnnealing {
 	private Knapsack bestSolution, actualSolution;
 	private ArrayList<Knapsack> solutions;
 	private Knapsack knapsack;
+	
+	public SimulatedAnnealing() {
+		// TODO delete default constructor when interface is fully developed
+	}
 	
 	/**
 	 * Constructor of SimulatedAnnealing class.
@@ -70,5 +75,12 @@ public class SimulatedAnnealing {
 //		}
 		return actualSolution;
 		
+	}
+	
+	/**
+	 * TODO doc
+	 */
+	public void execute() {
+		// TODO this is the actual algorithim
 	}
 }

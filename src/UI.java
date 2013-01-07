@@ -1,12 +1,14 @@
+import hybridation.Coordinator;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Hybridation.Coordinator;
-import Problem.Knapsack;
-import Problem.Parser;
+import problem.Knapsack;
+import problem.Parser;
+
 
 /**
  * User interface for HybridKnapsack.
@@ -71,13 +73,19 @@ public class UI {
 	 * @param instance The instance to be solved.
 	 */
 	private static void launchExecution(File instance) {
-		Knapsack knapsack;
-		
 		try {
-			System.out.println("Parsing file " + instance.getName());
-			knapsack = Parser.parse(instance);
+			
+			// Parses file
+			System.out.println("Parsing file " + instance.getName() + "...");
+			Knapsack knapsack = Parser.parse(instance);
+			
+			// Solves problem
 			System.out.println("Solving...");
 			new Coordinator(knapsack).solve();
+			
+			// Stores results
+			System.out.println("Storing solution...");
+			// TODO store solution
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

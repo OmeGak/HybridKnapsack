@@ -1,4 +1,4 @@
-package Problem;
+package problem;
 
 /**
  * Class representing an element of the knapsack.
