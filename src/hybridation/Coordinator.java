@@ -60,11 +60,12 @@ public class Coordinator {
 	public void solve() {
 		
 		// Creates agents
-		for (HeuristicFactory metaheuristicType : HeuristicFactory.values()) {
-			agents.add(new Agent(metaheuristicType.create(), initialKnapsack));
+		for (HeuristicFactory heuristicType : HeuristicFactory.values()) {
+			agents.add(new Agent(heuristicType.create(), initialKnapsack));
 		}
 		
 		// TODO stop condition?
+		// N lines without improvement
 		while (true) {
 			runAgentsOnce();
 			redirectAgentsSearch();
@@ -88,8 +89,10 @@ public class Coordinator {
 		// Checks quality of each agent
 		for (Agent agent : agents) {
 			// TODO comparative value
+			// x% worse than best?
 		}
 		
-		// TODO fix search space			
+		// TODO fix search space
+		
 	}
 }

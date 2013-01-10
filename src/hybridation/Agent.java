@@ -46,9 +46,19 @@ public class Agent {
 	}
 	
 	/**
+	 * Sets the new current solution.
+	 * 
+	 * @param knapsack The Knapsack to be set as current solution.
+	 */
+	public void setCurrentSolution(Knapsack knapsack) {
+		currentSolution = new Knapsack(knapsack);
+	}
+	
+	/**
 	 * Performs a step of the heuristic producing a new solution.
 	 */
 	public void step() {
-		solver.execute();
+		Knapsack newSolution = new Knapsack(solver.executeOnce(currentSolution)); 
+		currentSolution = newSolution;
 	}
 }

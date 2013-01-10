@@ -80,7 +80,8 @@ public class SimulatedAnnealing extends Heuristic {
 	/**
 	 * TODO doc
 	 */
-	public void execute() {
+	public Knapsack executeOnce(Knapsack knapsack) {
 		// TODO this is the actual algorithim
+		return new Knapsack(knapsack);
 	}
 }

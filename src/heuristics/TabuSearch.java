@@ -1,5 +1,9 @@
 package heuristics;
 
+import java.util.ArrayList;
+
+import problem.Knapsack;
+
 /**
  * TODO add javadoc
  * @author omegak
@@ -7,11 +11,11 @@ package heuristics;
  */
 public class TabuSearch extends Heuristic {
 
+	ArrayList<Knapsack> tabuList;
 
-	/**
-	 * TODO doc
-	 */
-	public void execute() {
-		// TODO this is the actual algorithim
+	@Override
+	public Knapsack executeOnce(Knapsack knapsack) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
