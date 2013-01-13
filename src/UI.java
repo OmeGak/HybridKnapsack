@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Problem.Knapsack;
-
+import problem.Knapsack;
+import problem.Parser;
 
 /**
  * User interface for HybridKnapsack.
