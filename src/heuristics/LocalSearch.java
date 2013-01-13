@@ -1,5 +1,8 @@
 package heuristics;
 
+import java.util.HashMap;
+
+import problem.Element;
 import problem.Knapsack;
 
 /**
@@ -11,7 +14,12 @@ public class LocalSearch extends Heuristic {
 
 	@Override
 	public Knapsack executeOnce(Knapsack knapsack) {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<Integer, Element> insertedElements = knapsack.copyInsertedElements();
+		
+		for (Integer key : insertedElements.keySet()) {
+			// TODO hacer y tal
+		}
+		
+		return knapsack;
 	}
 }

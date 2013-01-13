@@ -75,11 +75,13 @@ public class TabuSearch extends Heuristic {
 					
 				}
 				
-				if(btSol.getTotalWeight() + tElement.getWeight() <= bSol.getCapacity())
-				{
-				
+
+				if(btSol.calculateTotalWeight() + tElement.getWeight() <= bSol.getCapacity()){
+									
+					//The element is swapped from notInsertedElement list to inserted Element list
 					
-				}
+					}
+
 				
 				else{
 					break;

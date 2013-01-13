@@ -74,6 +74,55 @@ public class Knapsack {
 	}
 	
 	/**
+	 * Returns the free space available in the knapsack.
+	 * 
+	 * @return The free space available in the knapsack.
+	 */
+	public int calculateFreeSpace() {
+		return capacity - calculateTotalWeight();
+	}
+	
+	/**
+	 * Returns the total value of inserted elements.
+	 * 
+	 * @return the total value of inserted elements.
+	 */
+	public int calculateTotalValue() {
+		int value = 0;
+		
+		for (int i=0; i<insertedElements.size(); i++) {
+			value += insertedElements.get(i).getValue();
+		}
+		
+		return value;
+	}
+	
+	/**
+	 * Returns the total weight of inserted elements.
+	 * 
+	 * @return the total weight of inserted elements.
+	 */
+	public int calculateTotalWeight() {
+		int weight = 0;
+		
+		for (int i=0; i<insertedElements.size(); i++) {
+			weight += insertedElements.get(i).getWeight();
+		}
+		
+		return weight;
+	}
+	
+	/**
+	 * Compares this knapsack with a given one.
+	 * 
+	 * @param k the knapsack to be compared with.
+	 * @return A ratio of improvement. 1 for equals, above for better and under for worse. 
+	 */
+	public double compareWith(Knapsack k) {
+		return (double)evaluate()/k.evaluate();
+	}
+	
+	/**
 	 * Returns a copy list of the elements that are inserted into the knapsack.
 	 * 
 	 * @return A copy list of the elements that are inserted into the knapsack.
@@ -97,8 +146,8 @@ public class Knapsack {
 	 * @return the profit of the solution. Negative for invalid solutions.
 	 */
 	public int evaluate() {
-		if (getTotalWeight() <= capacity) {
-			return getTotalValue();
+		if (calculateTotalWeight() <= capacity) {
+			return calculateTotalValue();
 		} else {
 			return INVALID;
 		}
@@ -111,7 +160,7 @@ public class Knapsack {
 	 * @return TRUE if the element fits, FALSE otherwise.
 	 */
 	public boolean fits(Element element) {
-		return element.getWeight() <= getFreeSpace();
+		return element.getWeight() <= calculateFreeSpace();
 	}
 	
 	/**
@@ -122,15 +171,7 @@ public class Knapsack {
 	public int getCapacity() {
 		return capacity;
 	}
-	
-	/**
-	 * Returns the free space available in the knapsack.
-	 * 
-	 * @return The free space available in the knapsack.
-	 */
-	public int getFreeSpace() {
-		return capacity - getTotalWeight();
-	}
+
 	
 	/**
 	 * Returns the best possible solution of the instance. 
@@ -142,59 +183,21 @@ public class Knapsack {
 	}
 	
 	/**
-	 * Returns the total value of inserted elements.
-	 * 
-	 * @return the total value of inserted elements.
-	 */
-	public int getTotalValue() {
-		int value = 0;
-		
-		for (int i=0; i<insertedElements.size(); i++) {
-			value += insertedElements.get(i).getValue();
-		}
-		
-		return value;
-	}
-	
-	/**
-	 * Returns the total weight of inserted elements.
-	 * 
-	 * @return the total weight of inserted elements.
-	 */
-	public int getTotalWeight() {
-		int weight = 0;
-		
-		for (int i=0; i<insertedElements.size(); i++) {
-			weight += insertedElements.get(i).getWeight();
-		}
-		
-		return weight;
-	}
-	
-	/**
-	 * Creates a new {@link Knapsack} object moving the given {@link Element} from not inserted to inserted.
+	 * Tries to move the given {@link Element} from not inserted to inserted.
 	 * 
 	 * @param element The element to be inserted from the not inserted list.
-	 * @return a new {@link Knapsack} object.
 	 * @throws NoSuchElementException When the element is not present in not inserted elements.  
 	 */
-	public Knapsack insertElement(Element element) throws NoSuchElementException {
+	public void insertElement(Element element) throws NoSuchElementException {
 		
 		// Exception check
 		if (!notInsertedElements.containsKey(element.getId())) {
 			throw new NoSuchElementException();
 		}
 		
-		// Creates new lists of elements 
-		HashMap<Integer, Element> nextInsertedElements = new HashMap<Integer, Element>(insertedElements);
-		HashMap<Integer, Element> nextNotInsertedElements = new HashMap<Integer, Element>(notInsertedElements);
-		
 		// Updates the new lists
-		Element insertion = nextNotInsertedElements.remove(element.getId());
-		nextInsertedElements.put(insertion.getId(), insertion);
-		
-		// Returns the new solution
-		return new Knapsack(capacity, optimalValue, nextInsertedElements, nextNotInsertedElements);
+		Element insertion = notInsertedElements.remove(element.getId());
+		insertedElements.put(insertion.getId(), insertion);
 	}
 	
 	/**
@@ -203,7 +206,7 @@ public class Knapsack {
 	 * @return TRUE if the knapsack is full, FALSE otherwise.
 	 */
 	public boolean isFull() {
-		int emptySpace = getFreeSpace();
+		int emptySpace = calculateFreeSpace();
 		
 		for (Integer key : notInsertedElements.keySet()) {
 			Element element = notInsertedElements.get(key);

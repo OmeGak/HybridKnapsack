@@ -58,7 +58,6 @@ public class Agent {
 	 * Performs a step of the heuristic producing a new solution.
 	 */
 	public void step() {
-		Knapsack newSolution = new Knapsack(solver.executeOnce(currentSolution)); 
-		currentSolution = newSolution;
+		currentSolution = solver.executeOnce(currentSolution);
 	}
 }
