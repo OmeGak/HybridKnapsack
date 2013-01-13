@@ -2,7 +2,6 @@ package heuristics;
 
 import java.util.ArrayList;
 
-import problem.Element;
 import problem.Knapsack;
 
 

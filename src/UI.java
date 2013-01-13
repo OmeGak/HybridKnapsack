@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import problem.Knapsack;
-import problem.Parser;
+import Problem.Knapsack;
 
 
 /**

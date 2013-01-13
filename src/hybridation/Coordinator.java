@@ -4,7 +4,6 @@ import heuristics.HeuristicFactory;
 
 import java.util.ArrayList;
 
-
 import problem.Knapsack;
 
 
