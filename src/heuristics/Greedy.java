@@ -23,21 +23,20 @@ public class Greedy extends Heuristic {
 	 */
 	@Override
 	public Knapsack executeOnce(Knapsack knapsack) {
-		Knapsack newKnapsack = null;
 		int notInsertedElements = knapsack.copyNotInsertedElements().size();
 		
 		// Fill the knapsack with the best element at a time
 		while ((!knapsack.isFull()) || (notInsertedElements > 0)) {
 			try {
 				Element element = getBestFitting(knapsack);
-				newKnapsack = knapsack.insertElement(element);
+				knapsack.insertElement(element);
 			} catch (Exception e) {
 				System.out.println(ERROR_NO_FITTING);
 				break;
 			}
 		}
 		
-		return newKnapsack;
+		return knapsack;
 	}
 	
 	/**
