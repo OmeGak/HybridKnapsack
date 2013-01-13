@@ -25,6 +25,8 @@ public class Knapsack {
 	/** List of not inserted elements. */
 	private final ArrayList<Element> notInsertedElements;
 	
+	private Element tValue;
+	
 	/**
 	 * Constructor that copies a given {@link Knapsack} object and ensures inalterability. 
 	 * 
@@ -38,6 +40,8 @@ public class Knapsack {
 		insertedElements = new ArrayList<Element>();
 		notInsertedElements = new ArrayList<Element>(knapsack.notInsertedElements);
 	}
+	
+	
 	
 	/**
 	 * Constructor of the class that ensures inalterability.
@@ -70,6 +74,48 @@ public class Knapsack {
 		// Creates the lists
 		insertedElements = new ArrayList<Element>(_insertedElements);
 		notInsertedElements = new ArrayList<Element>(_notInsertedElements);
+	}
+	
+	
+	/**
+	 * @author jorgebg90
+	 * Returns the elements that are not inserted into the knapsack
+	 */
+	public ArrayList <Element> getNotInsertedElements()
+	{
+		return notInsertedElements;
+		
+	}
+	
+	/**
+	 * @author jorgebg90
+	 * Returns the elements that are inserted into the knapsack
+	 */
+	public ArrayList <Element> getInsertedElements()
+	{
+		return insertedElements;
+		
+	}
+	
+	/**
+	 * @author jorgebg90
+	 * This method swaps two elements throughout notInsertedElements and
+	 * insertedElements Element lists.
+	 */
+	public void swapElement()
+	{
+		
+		if (!notInsertedElements.isEmpty())
+		{
+			/*Must be take the last element of notInsertedElement list*/
+			tValue= notInsertedElements.get(notInsertedElements.size());
+			/*Remove the last element of notInsertedElements list*/
+			notInsertedElements.remove(notInsertedElements.size());
+			/*Insert the erased element from notInsertedElement list to 
+			 * the insertedElementList
+			 */
+			insertedElements.add(insertedElements.size()+1, tValue);
+		}
 	}
 	
 	/**

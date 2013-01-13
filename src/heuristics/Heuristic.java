@@ -1,6 +1,6 @@
 package heuristics;
 
-import problem.Knapsack;
+import Problem.Knapsack;
 
 /**
  * Abstract class to extends specific heuristics from it.
