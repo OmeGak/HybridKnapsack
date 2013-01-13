@@ -1,6 +1,6 @@
 package heuristics;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import problem.Element;
 import problem.Knapsack;
@@ -12,14 +12,19 @@ import problem.Knapsack;
  */
 public class TabuSearch extends Heuristic {
 
-	ArrayList<Element> tabuList;
+	/**Tabu list with the worst elements of the KS*/
+	HashMap<Integer, Element> tabuList;
 	
+	/** Knapsack that contains the best solution*/
 	private Knapsack bSol;
+	/** Knapsack that contains the actual solution*/
 	private Knapsack aSol;
+	/** Knapsack that contains the temporal solution*/
 	private Knapsack btSol;
 	
+	/**Temporal element that maintains the current best solution*/
 	private Element tElement;
-	
+	/**Number of iterations that is given by the Agent class*/
 	private int iT;
 	
 	public TabuSearch() {
@@ -58,26 +63,23 @@ public class TabuSearch extends Heuristic {
 		btSol = bSol;
 		
 		// tElement contains a random element value from Agent propose
-		tElement = btSol.getNotInsertedElements().get(0); /*Random value*/
+		tElement = btSol.copyNotInsertedElements().get(0); /*Random value*/
 		
 		//It iterates a defined number of steps given by the Agent
-		for(int i=0; i <= iT;i++)
-		{
-			for (int j=0; j<= btSol.getNotInsertedElements().size();j++)
+		
+			for (int j=0; j<= btSol.copyNotInsertedElements().size();j++)
 			{
-				if(tElement.getWeight() >  btSol.getNotInsertedElements().get(j).getWeight())
+				if(tElement.getWeight() >  btSol.copyNotInsertedElements().get(j).getWeight())
 				{
-					//The discarded element is added to the tabu list
-					tabuList.add(btSol.getNotInsertedElements().get(j));
-					tElement = btSol.getNotInsertedElements().get(j);
+					
 					
 				}
 				
-				if(btSol.getTotalWeight() + tElement.getWeight() <= bSol.getCapacity()){
-									
-					//The element is swapped from notInsertedElement list to inserted Element list
-					bSol.swapElement();
-					}
+				if(btSol.getTotalWeight() + tElement.getWeight() <= bSol.getCapacity())
+				{
+				
+					
+				}
 				
 				else{
 					break;
@@ -86,7 +88,7 @@ public class TabuSearch extends Heuristic {
 				
 			}
 			
-		}
+		
 		
 		
 		return bSol;
