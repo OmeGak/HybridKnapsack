@@ -1,5 +1,6 @@
 package hybridation;
 
+import heuristics.Greedy;
 import heuristics.HeuristicFactory;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class Coordinator {
 	 */
 	public Coordinator(Knapsack knapsack) {
 		initialKnapsack = new Knapsack(knapsack);
+		initialize();
 		currentBestKnapsack = new Knapsack(knapsack);
 	}
 	
@@ -60,7 +62,7 @@ public class Coordinator {
 		
 		// Creates agents
 		for (HeuristicFactory heuristicType : HeuristicFactory.values()) {
-			agents.add(new Agent(heuristicType.create(), initialKnapsack));
+			agents.add(new Agent(heuristicType.create(), currentBestKnapsack));
 		}
 		
 		// TODO stop condition?
@@ -69,6 +71,15 @@ public class Coordinator {
 			runAgentsOnce();
 			redirectAgentsSearch();
 		}
+	}
+	
+	/**
+	 * TODO doc
+	 */
+	private void initialize() {
+		Agent initializer = new Agent(new Greedy(), initialKnapsack);
+		initializer.step();
+		currentBestKnapsack = initializer.getCurrentSolution();
 	}
 	
 	/**
