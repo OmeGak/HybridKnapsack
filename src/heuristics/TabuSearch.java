@@ -2,8 +2,8 @@ package heuristics;
 
 import java.util.ArrayList;
 
-import Problem.Element;
-import Problem.Knapsack;
+import problem.Element;
+import problem.Knapsack;
 
 /**
  * TODO add javadoc
@@ -22,6 +22,9 @@ public class TabuSearch extends Heuristic {
 	
 	private int iT;
 	
+	public TabuSearch() {
+		// TODO delete
+	}
 	
 	/**
 	 * 
@@ -45,7 +48,7 @@ public class TabuSearch extends Heuristic {
 		
 		// TODO Auto-generated method stub
 		
-	
+		return null;
 	}
 	
 	public Knapsack TabuSearch ()
