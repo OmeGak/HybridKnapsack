@@ -2,6 +2,7 @@ package heuristics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import problem.Element;
 import problem.Knapsack;
@@ -102,16 +103,28 @@ public class SimulatedAnnealing extends Heuristic {
 		HashMap<Integer, Element> inserted = knapsack.copyInsertedElements();
 		HashMap<Integer, Element> notInserted = knapsack.copyNotInsertedElements();
 		
-		Element maxE = maxElementFound(inserted);
+		//Random value to calculate the number of neighbors you're going to visit in one step.
+		//Value between 1 and 10.
+		Random r = new Random();	
+		int n = r.nextInt(10)+1;
 		
-		/*Possible element to add into the knapsack*/
-		Element posChange = minElementFound(notInserted);
+		/*Element to compare*/
+		Element e = knapsack.getRandomInsertedElement();
+		
+		/*Possibles elements to add into the knapsack*/
+		ArrayList<Element> posChanges = new ArrayList<Element>();
+		for(int i = 0; i < n; i++){
+			posChanges.add(knapsack.getRandomNotInsertedElement());
+		}
 		
 		
 		/*Change the elements into the Knapsack*/
-		if(maxE.getWeight() > posChange.getWeight()){
-			inserted.remove(maxE);
-			knapsack.insertElement(posChange);
+		for(int i = 0; i < posChanges.size(); i++)
+		if(e.getWeight() > posChanges.get(i).getWeight()){
+			inserted.remove(e);
+			knapsack.insertElement(posChanges.get(i));
+			notInserted.remove(posChanges.get(i));
+			e = posChanges.get(i);
 		}
 		
 		/*Can we add more elements now?*/
@@ -128,32 +141,6 @@ public class SimulatedAnnealing extends Heuristic {
 		return knapsack;
 	}
 
-	
-
-	
-
-	/**
-	 * Returns the max value found in the InsertedElements list in the Knapsack.
-	 * 
-	 * @param h1 Inserted Element List.
-	 * @return maxE Maximum Value found.
-	 */
-	
-	private Element maxElementFound(HashMap<Integer,Element> h1){
-		
-		/*Random value into the actual Solution for start looking the maxElement*/
-		Element maxE = new Element(h1.get(0).getId(),
-				h1.get(0).getValue(),
-				h1.get(0).getWeight());
-		
-		for (int i = 1; i < h1.size(); i++){
-			if(maxE.getWeight() < h1.get(i).getWeight()){
-				maxE = h1.get(i);
-			}
-		}
-		
-		return maxE; 
-	}
 	
 	/**
 	 * Returns the min value found in the notInsertedElements list in the Knapsack.
