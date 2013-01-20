@@ -242,4 +242,21 @@ public class Knapsack {
 	public boolean hasElementsLeft() {
 		return notInsertedElements.size() != 0;
 	}
+	
+	/**
+	 * Tries to move the given {@link Element} from inserted to not inserted.
+	 * 
+	 * @param element The element to be removed from the inserted list.
+	 * @throws NoSuchElementException When the element is not present in inserted elements.  
+	 */
+	public void removeElement(Element element) throws NoSuchElementException {
+		// Exception check
+		if (!insertedElements.containsKey(element.getId())) {
+			throw new NoSuchElementException();
+		}
+				
+		// Updates the new lists
+		Element insertion = insertedElements.remove(element.getId());
+		notInsertedElements.put(insertion.getId(), insertion);
+	}
 }
