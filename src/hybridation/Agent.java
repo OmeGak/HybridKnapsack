@@ -40,7 +40,7 @@ public class Agent {
 	 * @return the evaluation of the current solution.
 	 */
 	public int evaluateCurrentSolution() {
-		return Evaluator.evaluate(currentSolution);
+		return currentSolution.evaluate();
 	}
 	
 	/**

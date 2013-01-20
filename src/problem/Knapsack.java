@@ -141,6 +141,15 @@ public class Knapsack {
 	}
 	
 	/**
+	 * Evaluates this knapsack using the {@link Evaluator} class.
+	 * 
+	 * @return The evaluation of this knapsack.
+	 */
+	public int evaluate() {
+		return Evaluator.evaluate(this);
+	}
+	
+	/**
 	 * Determines whether or not a given element fits in the knapsack or not.
 	 * 
 	 * @param element The element to be determined if fits.

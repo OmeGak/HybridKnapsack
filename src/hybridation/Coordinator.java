@@ -107,7 +107,7 @@ public class Coordinator {
 		
 		// Searches for improved solutions
 		for (Agent agent : agents) {
-			if (agent.evaluateCurrentSolution() > Evaluator.evaluate(currentBestKnapsack)) {
+			if (agent.evaluateCurrentSolution() > currentBestKnapsack.evaluate()) {
 				currentBestKnapsack = agent.getCurrentSolution();
 				improved = true;
 				roundsNotImproving = 0;

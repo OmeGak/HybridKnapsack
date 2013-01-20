@@ -54,4 +54,3 @@ public abstract class Heuristic {
 		return r.nextInt(10)+1;
 	}
 }
-	
