@@ -23,6 +23,8 @@ public enum HeuristicFactory {
 	},
 	
 	TABU_SEARCH {
+		
+		private static final int rounds=12;
 		public Heuristic create() {
 			return new TabuSearch();
 		}

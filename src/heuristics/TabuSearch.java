@@ -1,11 +1,8 @@
 package heuristics;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Queue;
-import java.util.Random;
 
-import problem.Element;
 import problem.Knapsack;
 
 /**
@@ -36,17 +33,14 @@ public class TabuSearch extends Heuristic {
 	
 		/**
 		 * 
-		 * @param kInherited knapsack inherited from agent class
-		 * @param rounds is the number of rounds that the agent executes
-		 */
+		 * Default constructor for Tabu Search
+		 * 
+		 * */
 		
 		
-		public TabuSearch(Knapsack kInherited, int rounds){
-			this.bestSol=kInherited;
-			this.sTabulist=rounds;
-			
-			/**The Tabu list in the first instance must be empty*/
-			tabuList=null;
+		public TabuSearch(){
+					
+			/**Nothing to do*/
 		}
 
 		@Override
@@ -54,24 +48,35 @@ public class TabuSearch extends Heuristic {
 			
 			while(!bestSol.isFull())
 			{
+				/**Variables of control*/
+				int i = 0;
+				int j = 0;
+				int n = 0;
 				
 				/**The candidate list is empty at first instance*/
 				candidateList = null;		
 				
 				/**It obtains a r index to give back a key to preserve the neighborhood*/
-				Random r = new Random();	
-				int n = r.nextInt(10)+1;
+				n =generateRandomNumberOfNeighbours();
 				
 				/**It creates a random neighborhood*/
 				
 				
+				
+					neighborhood.add(generateNeighbour(bestSol));
+				
+				
+				
 				/**This part compares if the candidate is included in the tabuList*/
-				for()
+				for(i=0;i<n;i++)
 				{
 									
 					if(tabuList.isEmpty()){
 						candidateList.add(sCandidate);			
 					}
+					/**If the tabu list is not empty but not contains
+					 * the next candidate, include the candidate in the 
+					 * candidate list*/
 					else{
 						if(!tabuList.contains(sCandidate)){
 							candidateList.add(sCandidate);
@@ -90,7 +95,7 @@ public class TabuSearch extends Heuristic {
 					bestSol = new Knapsack(sCandidate);
 					
 					/**The tabuList just can be get twelve partial solutions*/
-					if(tabuList.size()>12)
+					if(tabuList.size()>rounds)
 					{
 						tabuList.remove();
 						
