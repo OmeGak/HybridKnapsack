@@ -10,6 +10,12 @@ import problem.Knapsack;
  */
 public class Agent {
 	
+	/** The maximum number of iterations the agent can perform. */
+	private static final int MAX_ITERATIONS = 150;
+	
+	/** The minimum number of iterations the agent can perform. */
+	private static final int MIN_ITERATIONS = 100;
+	
 	/** The heuristic the agent is using to solve the Knapsack problem. */
 	private final Heuristic solver;
 	
@@ -55,9 +61,29 @@ public class Agent {
 	}
 	
 	/**
+	 * Performs a single iteration of the heuristic producing a new solution.
+	 */
+	public void executeOnce() {
+		currentSolution = solver.executeOnce(currentSolution);
+	}
+	
+	/**
 	 * Performs a step of the heuristic producing a new solution.
 	 */
 	public void step() {
-		currentSolution = solver.executeOnce(currentSolution);
+		int iterations = generateIterations();
+		
+		for (int i=0; i < iterations; i++) {
+			currentSolution = solver.executeOnce(currentSolution);			
+		}
+	}
+	
+	/**
+	 * Generates a random number of iterations for the agent.
+	 * 
+	 * @return A random number of iterations for the agent.
+	 */
+	private int generateIterations() {
+		return MIN_ITERATIONS + (int) (Math.random() * ((MAX_ITERATIONS - MIN_ITERATIONS) + 1));
 	}
 }

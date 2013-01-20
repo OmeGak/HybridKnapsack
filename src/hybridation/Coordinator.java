@@ -1,7 +1,7 @@
 package hybridation;
 
-import heuristics.Greedy;
 import heuristics.HeuristicFactory;
+import heuristics.RandomSearch;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ import problem.Knapsack;
 public class Coordinator {
 
 	/** Number of rounds without obtaining any improvement before stopping. */
-	private static final int MAX_ROUNDS_WITHOUT_IMPROVEMENT = 1000;
+	private static final int MAX_ROUNDS_WITHOUT_IMPROVEMENT = 30;
 	
 	/** Threshold for an acceptable solution. */
 	private static final double WORSE_THAN_BEST_THRESHOLD = 0.5;
@@ -83,8 +83,8 @@ public class Coordinator {
 	 * Initializes the coordinator by producing an initial best knapsack with a greedy algorithm.
 	 */
 	private void initialize() {
-		Agent agent = new Agent(new Greedy(), initialKnapsack);
-		agent.step();
+		Agent agent = new Agent(new RandomSearch(), initialKnapsack);
+		agent.executeOnce();
 		currentBestKnapsack = agent.getCurrentSolution();
 	}
 	
