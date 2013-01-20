@@ -1,8 +1,8 @@
 package heuristics;
 
-import java.util.ArrayList;
 import java.util.Queue;
 
+import problem.Evaluator;
 import problem.Knapsack;
 
 /**
@@ -20,10 +20,7 @@ public class TabuSearch extends Heuristic {
 
 	/** Knapsack that contains the best solution*/
 	private Knapsack sCandidate;
-	
-	/** It contains the closed neighborhood*/
-	private ArrayList <Knapsack> neighborhood;
-	
+		
 	/** It contains the size of the tabu list*/
 	private int tabuListSize;
 	
@@ -48,6 +45,8 @@ public class TabuSearch extends Heuristic {
 				int i = 0;
 				int n = 0;
 								
+				/** In first instance, the best solution is added by the Agent*/
+				bestSol=knapsack;
 				/**It obtains a r index to give back a key to preserve the neighborhood*/
 				n =generateRandomNumberOfNeighbours();
 				
@@ -84,7 +83,9 @@ public class TabuSearch extends Heuristic {
 						tabuList.remove();
 					
 			}
-					
+					if(bestSol.evaluate()==Evaluator.INVALID){
+						bestSol=knapsack;
+					}
 			}
 			return bestSol;
 		}
