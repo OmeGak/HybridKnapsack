@@ -16,44 +16,44 @@ import problem.Knapsack;
 public class TabuSearch extends Heuristic {
 
 	/**Tabu list with the worst elements of the KS*/
-	private Queue <Element> tabuList;
+	private Queue <Knapsack> tabuList;
 	
 	/** List of the possible candidates in the neighborhood*/
-	private ArrayList <Element> candidateList;
+	private ArrayList <Knapsack> candidateList;
 	
 	/** Knapsack that contains the best solution*/
 	private Knapsack bestSol;
 
-	//*Index to iterates the knapsack*/
-	private int i=0;
+	/** Knapsack that contains the best solution*/
+	private Knapsack sCandidate;
+
+	/**Index to iterates the knapsack*/
+	private int sTabulist=0;
 	
-	//** It contains the closed neighborhood*/
+	/** It contains the closed neighborhood*/
 	private ArrayList <Knapsack> neighborhood;
 	
 	
 		/**
 		 * 
 		 * @param kInherited knapsack inherited from agent class
-		 * 
+		 * @param rounds is the number of rounds that the agent executes
 		 */
 		
 		
-		public TabuSearch(Knapsack kInherited){
+		public TabuSearch(Knapsack kInherited, int rounds){
 			this.bestSol=kInherited;
+			this.sTabulist=rounds;
+			
+			/**The Tabu list in the first instance must be empty*/
+			tabuList=null;
 		}
 
 		@Override
 		public Knapsack executeOnce(Knapsack knapsack) {
 			
-			//The Tabu list in the first instance must be empty
-			tabuList=null;
-			
-			HashMap<Integer, Element> inserted = knapsack.copyInsertedElements();
-			HashMap<Integer, Element> notInserted = knapsack.copyNotInsertedElements();
-			
-			
-			
-			while(!bestSol.isFull()){
+			while(!bestSol.isFull())
+			{
 				
 				/**The candidate list is empty at first instance*/
 				candidateList = null;		
@@ -63,18 +63,13 @@ public class TabuSearch extends Heuristic {
 				int n = r.nextInt(10)+1;
 				
 				/**It creates a random neighborhood*/
-				for(int i = 0; i < n; i++){
-					neighborhood.add(new Knapsack(bestSol));
-					
-					
-				}
 				
 				
 				/**This part compares if the candidate is included in the tabuList*/
-				for(){
+				for()
+				{
 									
 					if(tabuList.isEmpty()){
-						
 						candidateList.add(sCandidate);			
 					}
 					else{
@@ -85,25 +80,28 @@ public class TabuSearch extends Heuristic {
 					}
 				}
 				
-				/***/
-				
+				/**This part evaluates the different solutions
+				 * If the candidate solution is better than the previous one
+				 * it must be changed and added to the tabu list
+				 * */
+				if(sCandidate.evaluate()>bestSol.evaluate()){
+					
+					tabuList.add(sCandidate);
+					bestSol = new Knapsack(sCandidate);
+					
+					/**The tabuList just can be get twelve partial solutions*/
+					if(tabuList.size()>12)
+					{
+						tabuList.remove();
+						
+					}
 					
 				}
 					
-				
-				
-				
-			
-			
-			
-			
+			}
 					
-	
-				
-			
-			
-			
-			return bSol;
+		
+			return bestSol;
 		}
 				
 	}
