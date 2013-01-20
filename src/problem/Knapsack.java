@@ -1,7 +1,10 @@
 package problem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 /**
  * Class to store a instance of the knapsack problem. It handles both the inserted and not inserted elements as well as
@@ -183,6 +186,34 @@ public class Knapsack {
 	}
 	
 	/**
+	 * Returns a random element from the inserted elements list.
+	 * 
+	 * @return A random element from the inserted elements list.
+	 */
+	public Element getRandomInsertedElement() {
+		Random random = new Random();
+		
+		List<Integer> keys = new ArrayList<Integer>(insertedElements.keySet());
+		int randomKey = keys.get(random.nextInt(keys.size()));
+		
+		return insertedElements.get(randomKey);
+	}
+	
+	/**
+	 * Returns a random element from the not inserted elements list.
+	 * 
+	 * @return A random element from the not inserted elements list.
+	 */
+	public Element getRandomNotInsertedElement() {
+		Random random = new Random();
+		
+		List<Integer> keys = new ArrayList<Integer>(notInsertedElements.keySet());
+		int randomKey = keys.get(random.nextInt(keys.size()));
+		
+		return notInsertedElements.get(randomKey);
+	}
+	
+	/**
 	 * Tries to move the given {@link Element} from not inserted to inserted.
 	 * 
 	 * @param element The element to be inserted from the not inserted list.
@@ -217,5 +248,14 @@ public class Knapsack {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Determines whether the knapsak problem still has not inserted elements left.
+	 * 
+	 * @return TRUE if not inserted elements are left, FALSE otherwise.
+	 */
+	public boolean hasElementsLeft() {
+		return notInsertedElements.size() != 0;
 	}
 }
