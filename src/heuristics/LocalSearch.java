@@ -1,5 +1,6 @@
 package heuristics;
 
+import problem.Evaluator;
 import problem.Knapsack;
 
 /**
@@ -22,6 +23,10 @@ public class LocalSearch extends Heuristic {
 			} else if (candidate.evaluate() > best.evaluate()) {
 				best = candidate;
 			}
+		}
+		
+		if (best.evaluate() == Evaluator.INVALID) {
+			best = knapsack;
 		}
 		
 		return best;

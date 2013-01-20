@@ -7,11 +7,11 @@ package problem;
  */
 public class Evaluator {
 	
+	/** Value for invalid solutions. */
+	public static final int INVALID = -1;
+	
 	/** The maximum number of evaluations before resetting. */
 	private static final long MAX_EVALUATIONS = 100000;
-	
-	/** Value for invalid solutions. */
-	private static final int INVALID = -1;
 	
 	/** Number of evaluations performed since last reset. */
 	private static int evaluations = 0; 
