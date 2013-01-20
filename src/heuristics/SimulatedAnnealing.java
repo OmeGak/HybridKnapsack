@@ -100,65 +100,25 @@ public class SimulatedAnnealing extends Heuristic {
 	 */
 	public Knapsack executeOnce(Knapsack knapsack) {
 		// TODO this is the actual algorithim
-		HashMap<Integer, Element> inserted = knapsack.copyInsertedElements();
-		HashMap<Integer, Element> notInserted = knapsack.copyNotInsertedElements();
 		
 		//Random value to calculate the number of neighbors you're going to visit in one step.
-		//Value between 1 and 10.
-		Random r = new Random();	
-		int n = r.nextInt(10)+1;
+		//Value between 1 and 10.	
+		int n = generateRandomNumberOfNeighbour();
 		
-		/*Element to compare*/
-		Element e = knapsack.getRandomInsertedElement();
+		ArrayList<Knapsack> listOfSolutions = new ArrayList<Knapsack>();
 		
-		/*Possibles elements to add into the knapsack*/
-		ArrayList<Element> posChanges = new ArrayList<Element>();
-		for(int i = 0; i < n; i++){
-			posChanges.add(knapsack.getRandomNotInsertedElement());
+		for (int i = 0; i < n; i++){
+			listOfSolutions.add(generateNeighbour(knapsack));
 		}
 		
-		
-		/*Change the elements into the Knapsack*/
-		for(int i = 0; i < posChanges.size(); i++)
-		if(e.getWeight() > posChanges.get(i).getWeight()){
-			inserted.remove(e);
-			knapsack.insertElement(posChanges.get(i));
-			notInserted.remove(posChanges.get(i));
-			e = posChanges.get(i);
-		}
-		
-		/*Can we add more elements now?*/
-		if(!knapsack.isFull()){
-			for(int i = 0; i < notInserted.size(); i++){
-				if(knapsack.fits(notInserted.get(i))){
-					knapsack.insertElement(notInserted.get(i));
-				}
+		for(int i = 0; i < listOfSolutions.size(); i++){
+			if(knapsack.calculateTotalValue() < listOfSolutions.get(i).calculateTotalValue()){
+				knapsack = listOfSolutions.get(i);
 			}
 		}
 		
-		actualSolution = knapsack;
 		
-		return knapsack;
-	}
-
-	
-	/**
-	 * Returns the min value found in the notInsertedElements list in the Knapsack.
-	 * 
-	 * @param h1  not Inserted Element List.
-	 * @return minE Minimum Value found.
-	 */
-	private Element minElementFound(HashMap<Integer, Element> h1) {
 		
-		Element minE = new Element(h1.get(0).getId(),
-				h1.get(0).getValue(),
-				h1.get(0).getWeight());
-		
-		for (int i = 1; i < h1.size(); i++){
-			if(minE.getWeight() > h1.get(i).getWeight()){
-				minE = h1.get(i);
-			}
-		}
-		return minE;
+		return actualSolution;
 	}
 }

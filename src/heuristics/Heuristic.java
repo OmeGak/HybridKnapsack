@@ -1,5 +1,7 @@
 package heuristics;
 
+import java.util.Random;
+
 import problem.Element;
 import problem.Knapsack;
 
@@ -26,7 +28,7 @@ public abstract class Heuristic {
 	 * @param knapsack The given knapsack to create a neighbour from it.
 	 * @return A new knapsack.
 	 */
-	private Knapsack generateNeighbour(Knapsack knapsack) {
+	protected Knapsack generateNeighbour(Knapsack knapsack) {
 		Knapsack neighbour = new Knapsack(knapsack);
 		
 		if (Math.random() < WEIGHT) {
@@ -41,4 +43,15 @@ public abstract class Heuristic {
 		
 		return neighbour;
 	}
+	
+	/**
+	 * Generate a random number of Neighbour
+	 * 
+	 * @return number of Neighbours.
+	 */
+	protected int generateRandomNumberOfNeighbour(){
+		Random r = new Random();
+		return r.nextInt(10)+1;
+	}
 }
+	
