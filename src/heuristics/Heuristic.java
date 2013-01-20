@@ -49,7 +49,7 @@ public abstract class Heuristic {
 	 * 
 	 * @return number of Neighbours.
 	 */
-	protected int generateRandomNumberOfNeighbour(){
+	protected int generateRandomNumberOfNeighbours(){
 		Random r = new Random();
 		return r.nextInt(10)+1;
 	}

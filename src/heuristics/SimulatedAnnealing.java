@@ -103,7 +103,7 @@ public class SimulatedAnnealing extends Heuristic {
 		
 		//Random value to calculate the number of neighbors you're going to visit in one step.
 		//Value between 1 and 10.	
-		int n = generateRandomNumberOfNeighbour();
+		int n = generateRandomNumberOfNeighbours();
 		
 		ArrayList<Knapsack> listOfSolutions = new ArrayList<Knapsack>();
 		

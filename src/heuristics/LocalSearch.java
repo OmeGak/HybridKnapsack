@@ -1,11 +1,5 @@
 package heuristics;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import problem.Element;
-import problem.Evaluator;
 import problem.Knapsack;
 
 /**
