@@ -1,10 +1,7 @@
 package heuristics;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
 
-import problem.Element;
 import problem.Knapsack;
 
 
@@ -23,20 +20,9 @@ public class SimulatedAnnealing extends Heuristic {
 	/**Freezing rate */
 	private int freezingT = 0;
 	
-	/**Number of iterations */
-	private int nIter = 0; 
-	
-	/**Max number of iterations */
-	private int MaxIter = 0;
-	
-	/**Best Solution found */
-	private Knapsack bestSolution;
-	
 	/**Actual Solution */
-	private Knapsack actualSolution;
+	private Knapsack currentSolution;
 	
-	/**Set of Solutions */
-	private ArrayList<Knapsack> solutions;
 	
 	public SimulatedAnnealing() {
 		// TODO delete default constructor when interface is fully developed
@@ -50,11 +36,9 @@ public class SimulatedAnnealing extends Heuristic {
 	 * @param Max Max number of iterations
 	 * @param k Instance of the problem which We are going to work
 	 */
-	public SimulatedAnnealing(int t, int fT, int nI, int Max){
+	public SimulatedAnnealing(int t, int fT){
 		this.temperature = t;
 		this.freezingT = fT;
-		this.nIter = nI;
-		this.MaxIter = Max;
 	}
 	
 	/**
@@ -88,7 +72,7 @@ public class SimulatedAnnealing extends Heuristic {
 //			}
 //			
 //		}
-		return actualSolution;
+		return currentSolution;
 		
 	}
 	
@@ -111,14 +95,39 @@ public class SimulatedAnnealing extends Heuristic {
 			listOfSolutions.add(generateNeighbour(knapsack));
 		}
 		
-		for(int i = 0; i < listOfSolutions.size(); i++){
-			if(knapsack.calculateTotalValue() < listOfSolutions.get(i).calculateTotalValue()){
-				knapsack = listOfSolutions.get(i);
-			}
+		currentSolution = knapsack;
+	
+		//Comparate the different possible Solutions until you get the best of them
+		Knapsack comparateKnapsack = listOfSolutions.get(0);
+		
+		for(int i = 1; i < listOfSolutions.size(); i++){
+			if(comparateKnapsack.calculateTotalValue() < listOfSolutions.get(i).calculateTotalValue())
+				comparateKnapsack = listOfSolutions.get(i);
 		}
 		
 		
+		//Comparate the best with the knapsack you're working
+		//If the best solution is not valid
+		if(comparateKnapsack.evaluate() == -1){
+			currentSolution = knapsack;
+		}else{
+			//Compare
+			if(knapsack.calculateTotalValue() < comparateKnapsack.calculateTotalValue()){
+				currentSolution = comparateKnapsack;
+			}else{
+				//If the temperature is greater than 0 (you can
+				//use a worse solution than the actual one)
+				if(temperature > 0){
+					currentSolution = comparateKnapsack;
+					temperature -= freezingT;
+				}
+				
+				currentSolution = knapsack;
+			}
+		}
 		
-		return actualSolution;
+		return currentSolution;
 	}
 }
+
+
