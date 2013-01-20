@@ -14,9 +14,6 @@ import java.util.Random;
  */
 public class Knapsack {
 	
-	/** Value for invalid solutions. */
-	static private final int INVALID = -1;
-	
 	/** Total capacity of the knapsack. */
 	private final int capacity;
 	
@@ -122,7 +119,7 @@ public class Knapsack {
 	 * @return A ratio of improvement. 1 for equals, above for better and under for worse. 
 	 */
 	public double compareWith(Knapsack k) {
-		return (double)evaluate()/k.evaluate();
+		return (double) Evaluator.evaluate(this)/Evaluator.evaluate(k);
 	}
 	
 	/**
@@ -141,19 +138,6 @@ public class Knapsack {
 	 */
 	public HashMap<Integer, Element> copyNotInsertedElements() {
 		return new HashMap<Integer, Element>(notInsertedElements);
-	}
-	
-	/**
-	 * Evaluation function that returns the profit of the solution. 
-	 * 
-	 * @return the profit of the solution. Negative for invalid solutions.
-	 */
-	public int evaluate() {
-		if (calculateTotalWeight() <= capacity) {
-			return calculateTotalValue();
-		} else {
-			return INVALID;
-		}
 	}
 	
 	/**

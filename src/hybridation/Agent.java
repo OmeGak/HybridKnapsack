@@ -1,6 +1,7 @@
 package hybridation;
 
 import heuristics.Heuristic;
+import problem.Evaluator;
 import problem.Knapsack;
 
 /**
@@ -39,7 +40,7 @@ public class Agent {
 	 * @return the evaluation of the current solution.
 	 */
 	public int evaluateCurrentSolution() {
-		return currentSolution.evaluate();
+		return Evaluator.evaluate(currentSolution);
 	}
 	
 	/**

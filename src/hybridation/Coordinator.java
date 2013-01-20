@@ -5,6 +5,7 @@ import heuristics.RandomSearch;
 
 import java.util.ArrayList;
 
+import problem.Evaluator;
 import problem.Knapsack;
 
 /**
@@ -44,12 +45,13 @@ public class Coordinator {
 	}
 	
 	/**
-	 * Returns TRUE if the coordinator has finished solving the problem, FALSE otherwise.
+	 * Determines whether the coordinator has finished executing or not. The stopping conditions is having exhausted the
+	 * evaluator or having run several rounds without improvement. 
 	 * 
-	 * @return TRUE if the coordinator has finished solving the problem, FALSE otherwise.
+	 * @return TRUE if the coordinator has finished, FALSE otherwise.
 	 */
 	public boolean hasFinished() {
-		return roundsNotImproving > MAX_ROUNDS_WITHOUT_IMPROVEMENT; 
+		return (Evaluator.isExhausted()) || (roundsNotImproving > MAX_ROUNDS_WITHOUT_IMPROVEMENT);
 	}
 	
 	/**
@@ -105,7 +107,7 @@ public class Coordinator {
 		
 		// Searches for improved solutions
 		for (Agent agent : agents) {
-			if (agent.getCurrentSolution().evaluate() > currentBestKnapsack.evaluate()) {
+			if (agent.evaluateCurrentSolution() > Evaluator.evaluate(currentBestKnapsack)) {
 				currentBestKnapsack = agent.getCurrentSolution();
 				improved = true;
 				roundsNotImproving = 0;
