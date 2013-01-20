@@ -1,7 +1,6 @@
 package hybridation;
 
 import heuristics.Heuristic;
-import problem.Evaluator;
 import problem.Knapsack;
 
 /**
