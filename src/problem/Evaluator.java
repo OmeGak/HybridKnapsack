@@ -14,7 +14,7 @@ public class Evaluator {
 	private static final long MAX_EVALUATIONS = 100000;
 	
 	/** Number of evaluations performed since last reset. */
-	private static int evaluations = 0; 
+	private static long evaluations = 0; 
 	
 	/**
 	 * Evaluation function that returns the profit of the solution. 
@@ -29,6 +29,15 @@ public class Evaluator {
 		} else {
 			return INVALID;
 		}
+	}
+	
+	/**
+	 * Returns the number of evaluation performed since the last reset.
+	 * 
+	 * @return the number of evaluation performed since the last reset.
+	 */
+	public static long getEvaluations() {
+		return evaluations;
 	}
 	
 	/**

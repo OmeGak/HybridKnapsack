@@ -119,7 +119,7 @@ public class Knapsack {
 	 * @return A ratio of improvement. 1 for equals, above for better and under for worse. 
 	 */
 	public double compareWith(Knapsack k) {
-		return (double) Evaluator.evaluate(this)/Evaluator.evaluate(k);
+		return (double) evaluate()/k.evaluate();
 	}
 	
 	/**
