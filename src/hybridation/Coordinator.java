@@ -20,13 +20,16 @@ public class Coordinator {
 	private static final int MAX_ROUNDS_WITHOUT_IMPROVEMENT = 30;
 	
 	/** Threshold for an acceptable solution. */
-	private static final double WORSE_THAN_BEST_THRESHOLD = 0.5;
+	private static final double REDIRECTION_THRESHOLD = 0.5;
+	
+	/** List of agents that solves the problem. */
+	private final ArrayList<Agent> agents;
 	
 	/** The initial knapsack problem. */
 	private final Knapsack initialKnapsack;
 	
-	/** List of agents that solves the problem. */
-	private ArrayList<Agent> agents;
+	/** The memory of accepted solutions */
+	private final KnapsackMemory knapsackMemory;
 	
 	/** The best solution found. */
 	private Knapsack currentBestKnapsack;
@@ -40,7 +43,9 @@ public class Coordinator {
 	 * @param knapsack The knapsack problem to be solved.
 	 */
 	public Coordinator(Knapsack knapsack) {
+		agents = new ArrayList<Agent>();
 		initialKnapsack = new Knapsack(knapsack);
+		knapsackMemory = new KnapsackMemory();
 		initialize();
 	}
 	
@@ -77,7 +82,24 @@ public class Coordinator {
 		while (!hasFinished()) {
 			runAgentsOnce();
 			updateCurrentBest();
-			redirectAgents();
+			collectSolutions();
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void collectSolutions() {
+		double solutionPerformance;
+		double agentPerformance = 0;
+		
+		for (Agent agent : agents) {
+			solutionPerformance = knapsackMemory.add(agent.getCurrentSolution());
+			// TODO store improvement ratios
+			
+			if (solutionPerformance <= REDIRECTION_THRESHOLD && agentPerformance <= REDIRECTION_THRESHOLD) {
+				
+			}
 		}
 	}
 	
@@ -100,7 +122,7 @@ public class Coordinator {
 	}
 	
 	/**
-	 * Updates current best solution and manages the counter of rounds with no improvement.
+	 * Collect the solution from all the agents.
 	 */
 	private void updateCurrentBest() {
 		boolean improved = false;
@@ -123,13 +145,8 @@ public class Coordinator {
 	/**
 	 * Checks if any of the agents is performing bad enough to reset its search space to the current best solution.
 	 */
-	private void redirectAgents() {
-		
-		// Checks quality of each agent
-		for (Agent agent : agents) {
-			if (agent.getCurrentSolution().compareWith(currentBestKnapsack) > WORSE_THAN_BEST_THRESHOLD) {
-				agent.setCurrentSolution(currentBestKnapsack);
-			}
-		}
+	private void redirectAgent(Agent agent) {
+		Knapsack best = knapsackMemory.getBest();
+		agent.setCurrentSolution(best);
 	}
 }
