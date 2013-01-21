@@ -6,7 +6,7 @@ import problem.Knapsack;
 
 
 /**
- * Simulated Annealing Class, which represent the algorithm and the solutions.
+ * Simulated Annealing heuristic.
  * 
  * @author Oxy
  */
@@ -30,11 +30,9 @@ public class SimulatedAnnealing extends Heuristic {
 	
 	/**
 	 * Constructor of SimulatedAnnealing class.
+	 * 
 	 * @param t Temperature, chosen by the user
 	 * @param fT Freezing Temperature 
-	 * @param nI Number of iterations
-	 * @param Max Max number of iterations
-	 * @param k Instance of the problem which We are going to work
 	 */
 	public SimulatedAnnealing(int t, int fT){
 		this.temperature = t;
@@ -83,8 +81,6 @@ public class SimulatedAnnealing extends Heuristic {
 	 * @return Actual Solution.
 	 */
 	public Knapsack executeOnce(Knapsack knapsack) {
-		// TODO this is the actual algorithim
-		
 		//Random value to calculate the number of neighbors you're going to visit in one step.
 		//Value between 1 and 10.	
 		int n = generateRandomNumberOfNeighbours();
