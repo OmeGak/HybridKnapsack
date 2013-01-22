@@ -23,10 +23,13 @@ public class Agent {
 	/** The solution the agent is currently handling. */
 	private Knapsack currentSolution;
 	
+	/** The time stamp of the current solution. */
 	private long currentSolutionTimeStamp;
 	
+	/** The solution the agent was handling in the previous round. */
 	private Knapsack previousSolution;
 	
+	/** The time stamp of the previous solution */
 	private long previousSolutionTimeStamp;
 	
 	/**
