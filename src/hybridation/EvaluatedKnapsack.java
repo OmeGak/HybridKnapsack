@@ -7,7 +7,7 @@ import problem.Knapsack;
  * 
  * @author omegak
  */
-public class KnapsackMemoryPair {
+public class EvaluatedKnapsack implements Comparable<EvaluatedKnapsack> {
     private final int evaluation;
     private final Knapsack knapsack;
     
@@ -16,18 +16,18 @@ public class KnapsackMemoryPair {
      * 
      * @param k The given knapsack to be stored along with its evaluation.
      */
-    public KnapsackMemoryPair(Knapsack k){
+    public EvaluatedKnapsack(Knapsack k){
         evaluation = k.evaluate();
         knapsack = k;
     }
     
     /**
-     * Determines whether this pair is worse than, equal to or better than another pair.
+     * Determines whether this pair is worse than, equal to or better than another evaluated knapsack.
      * 
      * @param k The pair to be compared with.
      * @return -1 if this is worse than, 0 if this is equal to, or 1 if this is better than.
      */
-    public int compareTo(KnapsackMemoryPair k) {
+    public int compareTo(EvaluatedKnapsack k) {
     	if (evaluation < k.evaluation) {
     		return -1;
     	} else if (evaluation > k.evaluation) {
