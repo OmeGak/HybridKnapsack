@@ -4,15 +4,12 @@ import java.util.ArrayList;
 
 import problem.Knapsack;
 
-
 /**
  * Simulated Annealing heuristic.
  * 
  * @author Oxy
  */
-
 public class SimulatedAnnealing extends Heuristic {
-	
 	
 	/**Initial temperature of the algorithm*/
 	private int temperature = 0;
@@ -37,41 +34,6 @@ public class SimulatedAnnealing extends Heuristic {
 	public SimulatedAnnealing(int t, int fT){
 		this.temperature = t;
 		this.freezingT = fT;
-	}
-	
-	/**
-	 * Simulated Annealing Algorithm method
-	 */
-	public Knapsack SAAlgorithm (){
-		// TODO addapt to knapsack changes
-//		Element minE = new Element();
-//		minE = knapsack.getNotInsertedElements().get(0); /*Random value*/
-//		
-//		
-//		/*Looking for the min element in the instance*/
-//		for(int i = 0; i < knapsack.getNotInsertedElements().size(); i++){
-//			for(int j = 0; j < knapsack.getNotInsertedElements().size(); j++){
-//				
-//				if(minE.getWeight() >  knapsack.getNotInsertedElements().get(j).getWeight()){
-//					minE = knapsack.getNotInsertedElements().get(j);
-//				
-//				/*
-//				 * If we can put into the knapsack
-//				 */
-//				if(knapsack.getTotalWeight() + minE.getWeight() <= knapsack.getCapacity()){
-//					knapsack.getInsertedElements().add(minE);
-//					solutions.add(knapsack);
-//					actualSolution = knapsack;
-//					knapsack.getNotInsertedElements().remove(minE);
-//				}else{
-//					break;
-//				}
-//				}
-//			}
-//			
-//		}
-		return currentSolution;
-		
 	}
 	
 	/**
