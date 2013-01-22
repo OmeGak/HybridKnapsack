@@ -13,12 +13,11 @@ public enum HeuristicFactory {
 	},
 	
 	SIMULATED_ANNEALING {
-		// TODO add constants
-		private static final int T = 10;
+		private static final int T = 200;
+		private static final int fR = 1;
 		
 		public Heuristic create() {
-			// TODO add variables to constructor
-			return new SimulatedAnnealing();
+			return new SimulatedAnnealing(T,fR);
 		}
 	},
 	
