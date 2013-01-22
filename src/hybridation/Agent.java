@@ -1,6 +1,7 @@
 package hybridation;
 
 import heuristics.Heuristic;
+import problem.Evaluator;
 import problem.Knapsack;
 
 /**
@@ -22,6 +23,15 @@ public class Agent {
 	/** The solution the agent is currently handling. */
 	private Knapsack currentSolution;
 	
+	/** The time stamp of the current solution. */
+	private long currentSolutionTimeStamp;
+	
+	/** The solution the agent was handling in the previous round. */
+	private Knapsack previousSolution;
+	
+	/** The time stamp of the previous solution */
+	private long previousSolutionTimeStamp;
+	
 	/**
 	 * Constructor of the class. It sets the heuristic that will be used to solve the given knapsack problem.
 	 * 
@@ -31,6 +41,18 @@ public class Agent {
 	public Agent(Heuristic heuristic, Knapsack knapsack) {
 		solver = heuristic;
 		currentSolution = knapsack;
+		currentSolutionTimeStamp = Evaluator.getEvaluations();
+		updatePreviousSolution();
+	}
+	
+	/**
+	 * Calculates the improvement ratio of the agent.
+	 * 
+	 * @return the improvement ratio of the agent.
+	 */
+	public double calculateImprovementRatio() {
+		return (double) (currentSolution.evaluate() - previousSolution.evaluate()) / 
+				(currentSolutionTimeStamp - previousSolutionTimeStamp);
 	}
 	
 	/**
@@ -68,14 +90,17 @@ public class Agent {
 	}
 	
 	/**
-	 * Performs a step of the heuristic producing a new solution.
+	 * Performs a step of the heuristic producing a new solution and updating its time stamp.
 	 */
 	public void step() {
-		int iterations = generateIterations();
+		updatePreviousSolution();
 		
+		int iterations = generateIterations();
 		for (int i=0; i < iterations; i++) {
 			currentSolution = solver.executeOnce(currentSolution);			
 		}
+		
+		currentSolutionTimeStamp = Evaluator.getEvaluations();
 	}
 	
 	/**
@@ -85,5 +110,13 @@ public class Agent {
 	 */
 	private int generateIterations() {
 		return MIN_ITERATIONS + (int) (Math.random() * ((MAX_ITERATIONS - MIN_ITERATIONS) + 1));
+	}
+	
+	/**
+	 * Updates the previous solution and its time stamp.
+	 */
+	private void updatePreviousSolution() {
+		previousSolution = new Knapsack(currentSolution);
+		previousSolutionTimeStamp = currentSolutionTimeStamp;
 	}
 }

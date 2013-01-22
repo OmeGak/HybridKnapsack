@@ -19,14 +19,23 @@ public class Coordinator {
 	/** Number of rounds without obtaining any improvement before stopping. */
 	private static final int MAX_ROUNDS_WITHOUT_IMPROVEMENT = 30;
 	
+	/** Maximum size of the memories used by the coordinator. */
+	private static final int MEMORY_MAX_SIZE = 30;
+	
 	/** Threshold for an acceptable solution. */
-	private static final double WORSE_THAN_BEST_THRESHOLD = 0.5;
+	private static final double REDIRECTION_THRESHOLD = 0.5;
+	
+	/** List of agents that solves the problem. */
+	private final ArrayList<Agent> agents;
 	
 	/** The initial knapsack problem. */
 	private final Knapsack initialKnapsack;
 	
-	/** List of agents that solves the problem. */
-	private ArrayList<Agent> agents;
+	/** The memory of improvement ratios of agents. */
+	private final SortedMemory<Double> improvementRatioMemory = new SortedMemory<Double>(MEMORY_MAX_SIZE);
+	
+	/** The memory of accepted solutions. */
+	private final SortedMemory<EvaluatedKnapsack> solutionMemory = new SortedMemory<EvaluatedKnapsack>(MEMORY_MAX_SIZE);
 	
 	/** The best solution found. */
 	private Knapsack currentBestKnapsack;
@@ -40,6 +49,7 @@ public class Coordinator {
 	 * @param knapsack The knapsack problem to be solved.
 	 */
 	public Coordinator(Knapsack knapsack) {
+		agents = new ArrayList<Agent>();
 		initialKnapsack = new Knapsack(knapsack);
 		initialize();
 	}
@@ -77,7 +87,26 @@ public class Coordinator {
 		while (!hasFinished()) {
 			runAgentsOnce();
 			updateCurrentBest();
-			redirectAgents();
+			redirectSearch();
+		}
+	}
+	
+	/**
+	 * Updates memories and redirects the search for those agents performing badly. 
+	 */
+	private void redirectSearch() {
+		double agentPerformance;
+		double solutionPerformance;
+		
+		for (Agent agent : agents) {
+			agentPerformance = improvementRatioMemory.add(agent.calculateImprovementRatio());
+			
+			EvaluatedKnapsack memory = new EvaluatedKnapsack(agent.getCurrentSolution());
+			solutionPerformance = solutionMemory.add(memory);
+			
+			if (agentPerformance <= REDIRECTION_THRESHOLD && solutionPerformance <= REDIRECTION_THRESHOLD) {
+				redirectAgent(agent);
+			}
 		}
 	}
 	
@@ -100,7 +129,7 @@ public class Coordinator {
 	}
 	
 	/**
-	 * Updates current best solution and manages the counter of rounds with no improvement.
+	 * Collect the solution from all the agents.
 	 */
 	private void updateCurrentBest() {
 		boolean improved = false;
@@ -123,13 +152,8 @@ public class Coordinator {
 	/**
 	 * Checks if any of the agents is performing bad enough to reset its search space to the current best solution.
 	 */
-	private void redirectAgents() {
-		
-		// Checks quality of each agent
-		for (Agent agent : agents) {
-			if (agent.getCurrentSolution().compareWith(currentBestKnapsack) > WORSE_THAN_BEST_THRESHOLD) {
-				agent.setCurrentSolution(currentBestKnapsack);
-			}
-		}
+	private void redirectAgent(Agent agent) {
+		EvaluatedKnapsack best = solutionMemory.getBest();
+		agent.setCurrentSolution(best.getKnapsack());
 	}
 }
