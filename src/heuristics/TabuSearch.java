@@ -6,7 +6,7 @@ import problem.Evaluator;
 import problem.Knapsack;
 
 /**
- * TODO add javadoc
+ * Tabu Search heuristic
  * @author jorgebg90
  *
  */
