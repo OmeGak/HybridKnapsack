@@ -1,19 +1,15 @@
 package heuristics;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 import problem.Evaluator;
 import problem.Knapsack;
 
 /**
-<<<<<<< HEAD
- * Tabu Search heuristic
-=======
- * TODO add javadoc
+ * Tabu search heuristic.
  * 
->>>>>>> 77997e2017a753cc23de223575d0c36167c5838e
- * @author jorgebg90
- * 
+ * @author jorgebg90 
  */
 public class TabuSearch extends Heuristic {
 
@@ -33,7 +29,7 @@ public class TabuSearch extends Heuristic {
 	 * Default constructor for Tabu Search
 	 */
 	public TabuSearch(int tlist) {
-
+		this.tabuList = new LinkedList <Knapsack> ();
 		this.tabuListSize = tlist;
 	}
 
