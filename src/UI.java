@@ -1,13 +1,7 @@
-import hybridation.Coordinator;
-
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import problem.Knapsack;
-import problem.Parser;
 
 /**
  * User interface for HybridKnapsack.
@@ -18,9 +12,6 @@ public class UI {
 	
 	/** Error message for an invalid option. */
 	private static final String ERROR_INVALID_OPTION = "Error: Invalid option.";
-
-	/** Error message for a not existing directory. */
-	private static final String ERROR_NO_SUCH_DIRECTORY = "Error: No such directory.";
 	
 	/** Option that triggers the exit of the program. */
 	private static final int EXIT_OPTION = 0;
@@ -49,7 +40,7 @@ public class UI {
 	 */
 	public static void run(String path) {
 		try {
-			loadDirectory(path);
+			instances = Tools.loadDirectory(path);
 			
 			do {
 				// Obtains the option
@@ -57,64 +48,13 @@ public class UI {
 
 				// Launches the execution
 				if (option != EXIT_OPTION) {
-					launchExecution(instances.get(option-1));
+					Launcher.launchOneInstance(instances.get(option-1));
 				}
 			} while (option != EXIT_OPTION);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
-	}
-	
-	/**
-	 * Parses a file and executes the coordinator that solves the knapsack problem instance hybridly.
-	 * 
-	 * @param instance The instance to be solved.
-	 */
-	private static void launchExecution(File instance) {
-		try {
-			
-			// Parses file
-			System.out.println("Parsing file " + instance.getName() + "...");
-			Knapsack knapsack = Parser.parse(instance);
-			
-			// Solves problem
-			System.out.println("Solving...");
-			new Coordinator(knapsack).solve();
-			
-			// Stores results
-			System.out.println("Storing solution...");
-			// TODO store solution
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Tries to load the instances of the knapsack problem from a given path.  
-	 * 
-	 * @param path The given path.
-	 * @throws IOException When there is no such directory.
-	 */
-	private static void loadDirectory(String path) throws IOException {
-		File workspace = new File(path);
-		
-		// Checks if it is a directory
-		if (!workspace.isDirectory()) {
-			throw new IOException(ERROR_NO_SUCH_DIRECTORY);
-		}
-		
-		// Indexes the instances
-		File[] files = workspace.listFiles();
-		instances = new ArrayList<File>();
-		
-		for (int i = 0; i < files.length; i++) {
-			String filename = files[i].getName();
-			if (filename.endsWith(".txt") || filename.endsWith(".TXT")) {
-				instances.add(files[i]);
-			}
-		}
 	}
 	
 	/**

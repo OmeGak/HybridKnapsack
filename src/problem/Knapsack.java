@@ -90,8 +90,9 @@ public class Knapsack {
 	public int calculateTotalValue() {
 		int value = 0;
 		
-		for (int i=0; i<insertedElements.size(); i++) {
-			value += insertedElements.get(i).getValue();
+		for (Integer key : insertedElements.keySet()) {
+			Element element = insertedElements.get(key);
+			value += element.getValue();
 		}
 		
 		return value;
@@ -105,8 +106,9 @@ public class Knapsack {
 	public int calculateTotalWeight() {
 		int weight = 0;
 		
-		for (int i=0; i<insertedElements.size(); i++) {
-			weight += insertedElements.get(i).getWeight();
+		for (Integer key : insertedElements.keySet()) {
+			Element element = insertedElements.get(key);
+			weight += element.getWeight();		
 		}
 		
 		return weight;

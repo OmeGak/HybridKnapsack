@@ -49,6 +49,7 @@ public class Coordinator {
 	 * @param knapsack The knapsack problem to be solved.
 	 */
 	public Coordinator(Knapsack knapsack) {
+		Evaluator.reset();
 		agents = new ArrayList<Agent>();
 		initialKnapsack = new Knapsack(knapsack);
 		initialize();
@@ -65,18 +66,22 @@ public class Coordinator {
 	}
 	
 	/**
-	 * Prints the state of the object.
+	 * Returns the state of the object.
+	 * 
+	 * @return The evaluation of the best solution found.
 	 */
-	public void print() {
-		// TODO print
+	public String printBestSolution() {
+		return Integer.toString(currentBestKnapsack.evaluate());
 	}
 	
 	/**
 	 * Creates and runs all the agents implementing different heuristics until they find an acceptable solution. After
 	 * each step, if a certain heuristic is performing extremely bad, its search space will be overridden with the
 	 * current best solution found.
+	 * 
+	 * @return The knapsack containing the best solution found.
 	 */
-	public void solve() {
+	public Knapsack solve() {
 		
 		// Creates agents
 		for (HeuristicFactory heuristicType : HeuristicFactory.values()) {
@@ -89,6 +94,8 @@ public class Coordinator {
 			updateCurrentBest();
 			redirectSearch();
 		}
+		
+		return new Knapsack(currentBestKnapsack);
 	}
 	
 	/**
