@@ -73,7 +73,7 @@ public class Launcher {
 		File csv = createCSV(path);
 		
 		try {
-			instances = Tools.loadDirectory(path);
+			instances = IOTools.loadDirectory(path);
 			
 			for (File instance : instances) {
 				evaluations = new ArrayList<Integer>();

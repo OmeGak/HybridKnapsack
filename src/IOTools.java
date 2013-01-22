@@ -3,11 +3,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Set of useful tools to use consistently throughout the project.
+ * Set of useful IO tools to use consistently throughout the project.
  * 
  * @author omegak
  */
-public class Tools {
+public class IOTools {
 	
 	/** Error message for a not existing directory. */
 	private static final String ERROR_NO_SUCH_DIRECTORY = "Error: No such directory.";

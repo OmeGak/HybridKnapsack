@@ -40,7 +40,7 @@ public class UI {
 	 */
 	public static void run(String path) {
 		try {
-			instances = Tools.loadDirectory(path);
+			instances = IOTools.loadDirectory(path);
 			
 			do {
 				// Obtains the option
