@@ -23,46 +23,32 @@ public class TabuSearch extends Heuristic {
 	private Knapsack sCandidate;
 
 	/** It contains the size of the tabu list */
-	private int tabuListSize;
+	private int tabuListMaxSize;
 
 	/**
 	 * Default constructor for Tabu Search
+	 * 
+	 * @param maxSize The maximum size of the tabu list.
 	 */
-	public TabuSearch(int tlist) {
-		this.tabuList = new LinkedList <Knapsack> ();
-		this.tabuListSize = tlist;
+	public TabuSearch(int maxSize) {
+		tabuList = new LinkedList<Knapsack>();
+		tabuListMaxSize = maxSize;
 	}
 
 	@Override
 	public Knapsack executeOnce(Knapsack knapsack) {
-
-		/** Variables of control */
-		int i = 0;
-		int n = 0;
-
+		int neighbours = generateRandomNumberOfNeighbours();
+		Knapsack best = null;
+		
 		/** In first instance, the best solution is added by the Agent */
 		bestSol = knapsack;
 		
-		/** It obtains a r index to give back a key to preserve the neighborhood */
-		n = generateRandomNumberOfNeighbours();
-
 		/** It creates a random neighborhood */
-		for (i = 0; i < n; i++) {
-			sCandidate = generateNeighbour(bestSol);
-
-			/** This part compares if the candidate is included in the tabuList */
-			if (tabuList.isEmpty()) {
-				tabuList.add(sCandidate);
-			}
+		for (int i = 0; i < neighbours; i++) {
+			sCandidate = generateNeighbour(knapsack);
 			
-			/**
-			 * If the tabu list is not empty but not contains the next
-			 * candidate, include the candidate in the candidate list
-			 */
-			else {
-				if (!tabuList.contains(sCandidate)) {
-					tabuList.add(sCandidate);
-				}
+			if (!tabuList.contains(sCandidate)) {
+				tabuList.add(sCandidate);
 			}
 
 			/**
@@ -70,13 +56,13 @@ public class TabuSearch extends Heuristic {
 			 * solution is better than the previous one it must be changed and
 			 * added to the tabu list
 			 * */
-			if (sCandidate.evaluate() > bestSol.evaluate()) {
+			if (sCandidate.evaluate() > knapsack.evaluate()) {
 
 				tabuList.add(sCandidate);
 				bestSol = new Knapsack(sCandidate);
 
 				/** The tabuList just can be get twelve partial solutions */
-				if (tabuList.size() > tabuListSize)
+				if (tabuList.size() > tabuListMaxSize)
 					tabuList.remove();
 
 			}
@@ -87,5 +73,4 @@ public class TabuSearch extends Heuristic {
 		
 		return bestSol;
 	}
-
 }
