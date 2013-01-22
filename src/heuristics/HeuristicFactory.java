@@ -13,11 +13,11 @@ public enum HeuristicFactory {
 	},
 	
 	SIMULATED_ANNEALING {
-		private static final int T = 200;
-		private static final int fR = 1;
+		private static final int TEMPERATURE = 200;
+		private static final int FREEZING_RATE = 1;
 		
 		public Heuristic create() {
-			return new SimulatedAnnealing(T,fR);
+			return new SimulatedAnnealing(TEMPERATURE,FREEZING_RATE);
 		}
 	},
 	
