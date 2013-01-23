@@ -14,7 +14,7 @@ public enum HeuristicFactory {
 	
 	SIMULATED_ANNEALING {
 		private static final int TEMPERATURE = 200;
-		private static final int FREEZING_RATE = 1;
+		private static final int FREEZING_RATE = 5;
 		
 		public Heuristic create() {
 			return new SimulatedAnnealing(TEMPERATURE,FREEZING_RATE);

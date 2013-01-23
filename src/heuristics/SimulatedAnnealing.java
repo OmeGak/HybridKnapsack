@@ -21,6 +21,7 @@ public class SimulatedAnnealing extends Heuristic {
 	private Knapsack currentSolution;
 	
 	
+	
 	public SimulatedAnnealing() {
 		// TODO delete default constructor when interface is fully developed
 	}
@@ -47,6 +48,15 @@ public class SimulatedAnnealing extends Heuristic {
 		//Value between 1 and 10.	
 		int n = generateRandomNumberOfNeighbours();
 		
+		//Value of the different of Energy (value) between knapsacks
+		int dEnergy = 0; 
+		
+		//Probability of change the knapsack if the comparateKnapsack is worse.
+		double probability = 0;
+		
+		//Comparative probability in case of dEnergy > 0
+		double randomProbability = 0;
+		
 		ArrayList<Knapsack> listOfSolutions = new ArrayList<Knapsack>();
 		
 		for (int i = 0; i < n; i++){
@@ -64,27 +74,54 @@ public class SimulatedAnnealing extends Heuristic {
 		}
 		
 		
+				
 		//Comparate the best with the knapsack you're working
 		//If the best solution is not valid
-		if(comparateKnapsack.evaluate() == -1){
-			currentSolution = knapsack;
+		if(comparateKnapsack.evaluate() != -1){
+			dEnergy = knapsack.evaluate() - comparateKnapsack.evaluate();
+		}
+		
+		
+		probability = calculateProbability(dEnergy, temperature);
+		randomProbability = Math.random();
+		
+		//If the comparateKnapsack is better than our current Knapsack
+		if(probability == 1){
+			currentSolution = comparateKnapsack;
+			temperature += freezingT;
 		}else{
-			//Compare
-			if(knapsack.calculateTotalValue() < comparateKnapsack.calculateTotalValue()){
+			//If the random probability is greater than calculated probability
+			if(randomProbability > probability){
 				currentSolution = comparateKnapsack;
+				temperature -= freezingT;
 			}else{
-				//If the temperature is greater than 0 (you can
-				//use a worse solution than the actual one)
-				if(temperature > 0){
-					currentSolution = comparateKnapsack;
-					temperature -= freezingT;
-				}
-				
 				currentSolution = knapsack;
+				temperature -= freezingT;
 			}
 		}
 		
+		
 		return currentSolution;
+	}
+	
+	/**
+	 * Return the probability of change a worse knapsack for the
+	 * current one.
+	 * @param dEnergy Different of energy between knapsacks
+	 * @param t Current Temperature
+	 * @return probability of change
+	 */
+
+	private double calculateProbability(int dEnergy, int t) {
+		
+		double changeProbability = 0;
+		
+		if(dEnergy > 0){
+			changeProbability = Math.exp(-(dEnergy)/t);
+		}
+		else changeProbability = 1;
+		
+		return changeProbability;
 	}
 }
 
