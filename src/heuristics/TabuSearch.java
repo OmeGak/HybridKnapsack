@@ -33,7 +33,6 @@ public class TabuSearch extends Heuristic {
 		int neighbours = generateRandomNumberOfNeighbours();
 		Knapsack best = null;
 		
-		/** It creates a random neighborhood */
 		for (int i = 0; i < neighbours; i++) {
 			Knapsack candidate = generateNeighbour(knapsack);
 			
