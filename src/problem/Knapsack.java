@@ -148,7 +148,7 @@ public class Knapsack {
 	 * @param k The knapsack to be compared with.
 	 * @return TRUE if the given knapsack is equal, FALSE otherwise.
 	 */
-	public boolean equalKnapsack(Knapsack k) {
+	public boolean equals(Knapsack k) {
 		for (Integer key : insertedElements.keySet()) {
 			if (!k.insertedElements.containsKey(key)) {
 				return false;
