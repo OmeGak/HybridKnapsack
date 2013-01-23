@@ -26,6 +26,12 @@ public class Knapsack {
 	/** List of not inserted elements. */
 	private final HashMap<Integer, Element> notInsertedElements;
 	
+	/** Total value of inserted elements. */
+	private int totalValue = 0;
+	
+	/** Total weight of inserted elements. */
+	private int totalWeight = 0;
+	
 	/**
 	 * Constructor that copies a given {@link Knapsack} object and ensures inalterability. 
 	 * 
@@ -34,6 +40,8 @@ public class Knapsack {
 	public Knapsack(Knapsack knapsack) {
 		capacity = knapsack.capacity;
 		optimalValue = knapsack.optimalValue;
+		totalValue = knapsack.totalValue;
+		totalWeight = knapsack.totalWeight;
 		
 		// Creates the lists from copy
 		insertedElements = new HashMap<Integer, Element>(knapsack.insertedElements);
@@ -57,61 +65,12 @@ public class Knapsack {
 	}
 	
 	/**
-	 * Constructor of the class that ensures inalterability.
-	 * 
-	 * @param _capacity Total capacity of the knapsack.
-	 * @param _optimalValue Best possible solution of the instance.
-	 * @param _insertedElements List of inserted elements.
-	 * @param _notInsertedElements List of not inserted elements.
-	 */
-	public Knapsack(int _capacity, int _optimalValue, HashMap<Integer, Element> _insertedElements, HashMap<Integer, Element> _notInsertedElements) {
-		capacity = _capacity;
-		optimalValue = _optimalValue;
-		
-		// Creates the lists
-		insertedElements = new HashMap<Integer, Element>(_insertedElements);
-		notInsertedElements = new HashMap<Integer, Element>(_notInsertedElements);
-	}
-	
-	/**
 	 * Returns the free space available in the knapsack.
 	 * 
 	 * @return The free space available in the knapsack.
 	 */
 	public int calculateFreeSpace() {
-		return capacity - calculateTotalWeight();
-	}
-	
-	/**
-	 * Returns the total value of inserted elements.
-	 * 
-	 * @return the total value of inserted elements.
-	 */
-	public int calculateTotalValue() {
-		int value = 0;
-		
-		for (Integer key : insertedElements.keySet()) {
-			Element element = insertedElements.get(key);
-			value += element.getValue();
-		}
-		
-		return value;
-	}
-	
-	/**
-	 * Returns the total weight of inserted elements.
-	 * 
-	 * @return the total weight of inserted elements.
-	 */
-	public int calculateTotalWeight() {
-		int weight = 0;
-		
-		for (Integer key : insertedElements.keySet()) {
-			Element element = insertedElements.get(key);
-			weight += element.getWeight();		
-		}
-		
-		return weight;
+		return capacity - getTotalWeight();
 	}
 	
 	/**
@@ -241,21 +200,37 @@ public class Knapsack {
 	}
 	
 	/**
+	 * Returns the total value of inserted elements.
+	 * 
+	 * @return the total value of inserted elements.
+	 */
+	public int getTotalValue() {
+		return totalValue;
+	}
+	
+	/**
+	 * Returns the total weight of inserted elements.
+	 * 
+	 * @return the total weight of inserted elements.
+	 */
+	public int getTotalWeight() {
+		return totalWeight;
+	}
+	
+	/**
 	 * Tries to move the given {@link Element} from not inserted to inserted.
 	 * 
 	 * @param element The element to be inserted from the not inserted list.
 	 * @throws NoSuchElementException When the element is not present in not inserted elements.  
 	 */
 	public void insertElement(Element element) throws NoSuchElementException {
-		
-		// Exception check
 		if (!notInsertedElements.containsKey(element.getId())) {
 			throw new NoSuchElementException();
 		}
 		
-		// Updates the new lists
-		Element insertion = notInsertedElements.remove(element.getId());
-		insertedElements.put(insertion.getId(), insertion);
+		Element insertedElement = notInsertedElements.remove(element.getId());
+		insertedElements.put(insertedElement.getId(), insertedElement);
+		updateTotalsOnInsertion(insertedElement);
 	}
 	
 	/**
@@ -302,13 +277,32 @@ public class Knapsack {
 	 * @throws NoSuchElementException When the element is not present in inserted elements.  
 	 */
 	public void removeElement(Element element) throws NoSuchElementException {
-		// Exception check
 		if (!insertedElements.containsKey(element.getId())) {
 			throw new NoSuchElementException();
 		}
 				
-		// Updates the new lists
-		Element insertion = insertedElements.remove(element.getId());
-		notInsertedElements.put(insertion.getId(), insertion);
+		Element removedElement = insertedElements.remove(element.getId());
+		notInsertedElements.put(removedElement.getId(), removedElement);
+		updateTotalsOnRemoval(removedElement);		
+	}
+	
+	/**
+	 * Updates the totals for an inserted element.
+	 * 
+	 * @param e The inserted element.
+	 */
+	private void updateTotalsOnInsertion(Element e) {
+		totalValue += e.getValue();
+		totalWeight += e.getWeight();
+	}
+	
+	/**
+	 * Updates the totals for a removed element.
+	 * 
+	 * @param e The removed element.
+	 */
+	private void updateTotalsOnRemoval(Element e) {
+		totalValue =- e.getValue();
+		totalWeight =- e.getWeight();
 	}
 }

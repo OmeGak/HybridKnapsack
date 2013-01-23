@@ -24,8 +24,8 @@ public class Evaluator {
 	public static int evaluate(Knapsack knapsack) {
 		evaluations++;
 		
-		if (knapsack.calculateTotalWeight() <= knapsack.getCapacity()) {
-			return knapsack.calculateTotalValue();
+		if (knapsack.getTotalWeight() <= knapsack.getCapacity()) {
+			return knapsack.getTotalValue();
 		} else {
 			return INVALID;
 		}
