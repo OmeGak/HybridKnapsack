@@ -8,12 +8,13 @@ import problem.Knapsack;
  * @author Oxy
  */
 public class SimulatedAnnealing extends Heuristic {
+
+	/**Freezing rate */
+	private final int freezingRate;
 	
 	/**Initial temperature of the algorithm*/
 	private int temperature = 0;
-	
-	/**Freezing rate */
-	private int freezingRate = 0;
+
 	
 	/**
 	 * Constructor of SimulatedAnnealing class.
