@@ -2,7 +2,6 @@ package heuristics;
 
 import java.util.Random;
 
-import problem.Element;
 import problem.Knapsack;
 
 /**
@@ -11,6 +10,9 @@ import problem.Knapsack;
  * @author omegak
  */
 public abstract class Heuristic {
+	
+	/** Warning message for unchanged neighbours. */
+	private static final String WARNING_NEIGHBOUR = "Warning: Generated neighbour didn't change.";
 	
 	/** Weight for randomly remove or insert an element from a knapsack. */
 	private static final double WEIGHT = 0.5;
@@ -30,15 +32,24 @@ public abstract class Heuristic {
 	 */
 	protected Knapsack generateNeighbour(Knapsack knapsack) {
 		Knapsack neighbour = new Knapsack(knapsack);
+		double random = Math.random();
 		
-		if (Math.random() < WEIGHT) {
-			// Remove
-			Element element = neighbour.getRandomInsertedElement();
-			neighbour.removeElement(element);
-		} else {
-			// Insert
-			Element element = neighbour.getRandomNotInsertedElement();
-			neighbour.insertElement(element);
+		try {
+			if (random > WEIGHT) {
+				if (neighbour.hasNotInsertedElements()) {
+					neighbour.insertElement(neighbour.getRandomNotInsertedElement());										
+				} else {
+					neighbour.removeElement(neighbour.getRandomInsertedElement());					
+				}
+			} else {
+				if (neighbour.hasInsertedElements()) {
+					neighbour.removeElement(neighbour.getRandomInsertedElement());					
+				} else {					
+					neighbour.insertElement(neighbour.getRandomNotInsertedElement());										
+				}
+			} 
+		} catch (Exception e) {
+			System.out.println(WARNING_NEIGHBOUR);
 		}
 		
 		return neighbour;

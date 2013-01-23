@@ -25,7 +25,7 @@ public class Greedy extends Heuristic {
 	public Knapsack executeOnce(Knapsack knapsack) {
 
 		// Fill the knapsack with the best element at a time
-		while ((!knapsack.isFull()) && (knapsack.hasElementsLeft())) {
+		while ((!knapsack.isFull()) && (knapsack.hasNotInsertedElements())) {
 			try {
 				knapsack.insertElement(getBestFitting(knapsack));
 			} catch (Exception e) {

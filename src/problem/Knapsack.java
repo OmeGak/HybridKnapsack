@@ -206,9 +206,14 @@ public class Knapsack {
 	 * Returns a random element from the inserted elements list.
 	 * 
 	 * @return A random element from the inserted elements list.
+	 * @throws Exception When there are no inserted elements.
 	 */
-	public Element getRandomInsertedElement() {
+	public Element getRandomInsertedElement() throws Exception {
 		Random random = new Random();
+		
+		if (insertedElements.size() == 0) {
+			throw new Exception("No elements inserted");
+		}
 		
 		List<Integer> keys = new ArrayList<Integer>(insertedElements.keySet());
 		int randomKey = keys.get(random.nextInt(keys.size()));
@@ -220,9 +225,14 @@ public class Knapsack {
 	 * Returns a random element from the not inserted elements list.
 	 * 
 	 * @return A random element from the not inserted elements list.
+	 * @throws Exception When there are no not inserted elements.
 	 */
-	public Element getRandomNotInsertedElement() {
+	public Element getRandomNotInsertedElement() throws Exception {
 		Random random = new Random();
+		
+		if (notInsertedElements.size() == 0) {
+			throw new Exception("No elements not inserted");
+		}
 		
 		List<Integer> keys = new ArrayList<Integer>(notInsertedElements.keySet());
 		int randomKey = keys.get(random.nextInt(keys.size()));
@@ -268,11 +278,20 @@ public class Knapsack {
 	}
 	
 	/**
-	 * Determines whether the knapsak problem still has not inserted elements left.
+	 * Determines whether the knapsak problem has inserted elements or not.
+	 * 
+	 * @return TRUE if it has inserted elements, FALSE otherwise.
+	 */
+	public boolean hasInsertedElements() {
+		return insertedElements.size() != 0;
+	}
+	
+	/**
+	 * Determines whether the knapsak problem still has not inserted elements left or not.
 	 * 
 	 * @return TRUE if not inserted elements are left, FALSE otherwise.
 	 */
-	public boolean hasElementsLeft() {
+	public boolean hasNotInsertedElements() {
 		return notInsertedElements.size() != 0;
 	}
 	
