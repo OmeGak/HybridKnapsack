@@ -3,7 +3,7 @@ HybridKnapsack is a hybrid approach to solve the knapsack problem cooperatively 
 * Tabu search.
 * Simulated annealing.
 
-This project is part of an assignment for the SH1 class of the Master in Soft Computing at University of Granada, Spain, and only for training purposes.
+This project is part of an assignment for the SH1 class of the Master in Soft Computing at University of Granada, Spain, and only for academic purposes.
 
 # Authors
  The participants are:
