@@ -143,6 +143,28 @@ public class Knapsack {
 	}
 	
 	/**
+	 * Determines whether a given knapsack has the same composition as this or not.
+	 * 
+	 * @param k The knapsack to be compared with.
+	 * @return TRUE if the given knapsack is equal, FALSE otherwise.
+	 */
+	public boolean equals(Knapsack k) {
+		for (Integer key : insertedElements.keySet()) {
+			if (!k.insertedElements.containsKey(key)) {
+				return false;
+			}
+		}
+		
+		for (Integer key : notInsertedElements.keySet()) {
+			if (!k.notInsertedElements.containsKey(key)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	/**
 	 * Evaluates this knapsack using the {@link Evaluator} class.
 	 * 
 	 * @return The evaluation of this knapsack.
