@@ -7,7 +7,7 @@
 public class HybridKnapsack {
 	
 	/** Usage of HybridKnapsack. */
-	private static final String USAGE = "usage: HybridKnapsack [path]";
+	private static final String USAGE = "usage: HybridKnapsack [path [tries]] ";
 	
 	/** Path where the instances of the knapsack problem are located. */
 	private static String path = "instances";
