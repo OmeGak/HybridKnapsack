@@ -31,12 +31,15 @@ public class IOTools {
 	 * @param path The given path.
 	 * @return The {@link File} reference to the created file.
 	 */
-	public static File createCSV(String path) {
+	public static File createCsvFile(String path) {
 		String date = DATE_FORMATTER.format(new Date());
 		
 		File csv = new File(path + "_" + date + CSV_EXTENSION);
 		try {
 			csv.createNewFile();
+			BufferedWriter writer = new BufferedWriter(new FileWriter(csv, true));
+			writer.write("optimal, stocastic solutions");
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -50,7 +53,7 @@ public class IOTools {
 	 * @param file The given CSV file.
 	 * @param values The row of integers to be inserted into the CSV file.
 	 */
-	public static void exportCSV(File file, ArrayList<Integer> values) {				
+	public static void exportCsvRow(File file, ArrayList<Integer> values) {				
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 			String row = "";

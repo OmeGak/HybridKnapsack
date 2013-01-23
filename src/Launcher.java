@@ -52,7 +52,7 @@ public class Launcher {
 		ArrayList<Integer> evaluations;
 		Knapsack solution;
 		
-		File csv = IOTools.createCSV(path);
+		File csv = IOTools.createCsvFile(path);
 		
 		try {
 			instances = IOTools.loadDirectory(path);
@@ -62,15 +62,16 @@ public class Launcher {
 				
 				for (int i = 0; i < triesPerInstance; i++) {
 					solution = launchOneInstance(instance);
+					if (evaluations.size() == 0) {
+						evaluations.add(solution.getOptimalValue());
+					}
 					evaluations.add(solution.evaluate());
 				}
 				
-				IOTools.exportCSV(csv, evaluations);
+				IOTools.exportCsvRow(csv, evaluations);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
 }
