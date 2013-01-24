@@ -19,6 +19,9 @@ public class IOTools {
 	/** Formater for the date. */
 	private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss");
 	
+	/** Default path for results files. */
+	private static final String CSV_PATH = "results";
+	
 	/** Error message for handling CSV files. */
 	private static final String ERROR_HANDLING_CSV = "Error: CSV cannot be handled as expected.";
 	
@@ -28,17 +31,20 @@ public class IOTools {
 	/**
 	 * Creates a CSV file in the given path.
 	 * 
-	 * @param path The given path.
+	 * @param fileName The identifier for the file.
 	 * @return The {@link File} reference to the created file.
 	 */
-	public static File createCsvFile(String path) {
+	public static File createCsvFile(String fileName) {
 		String date = DATE_FORMATTER.format(new Date());
 		
-		File csv = new File(path + "_" + date + CSV_EXTENSION);
+		File csvDir = new File(CSV_PATH);
+		File csv = new File(CSV_PATH, fileName + "_" + date + CSV_EXTENSION);
 		try {
+			csvDir.mkdir();
 			csv.createNewFile();
 			BufferedWriter writer = new BufferedWriter(new FileWriter(csv, true));
 			writer.write("optimal, stocastic solutions");
+			writer.newLine();
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
