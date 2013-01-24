@@ -1,6 +1,5 @@
 package hybridation;
 
-import heuristics.HeuristicFactory;
 import heuristics.RandomSearch;
 
 import java.util.ArrayList;
@@ -46,13 +45,14 @@ public class Coordinator {
 	/**
 	 * Constructor of the class. It sets the initial knapsack problem.
 	 * 
+	 * @param mode The mode in which the coordinator will work.
 	 * @param knapsack The knapsack problem to be solved.
 	 */
-	public Coordinator(Knapsack knapsack) {
-		Evaluator.reset();
-		agents = new ArrayList<Agent>();
+	public Coordinator(CoordinatorMode mode, Knapsack knapsack) {
 		initialKnapsack = new Knapsack(knapsack);
-		initialize();
+		initializeCurrentBest();
+		agents = mode.generateAgents(currentBestKnapsack);
+		Evaluator.reset();
 	}
 	
 	/**
@@ -82,13 +82,6 @@ public class Coordinator {
 	 * @return The knapsack containing the best solution found.
 	 */
 	public Knapsack solve() {
-		
-		// Creates agents
-		for (HeuristicFactory heuristicType : HeuristicFactory.values()) {
-			agents.add(new Agent(heuristicType.create(), currentBestKnapsack));
-		}
-		
-		// Simulates concurrency until finished
 		while (!hasFinished()) {
 			runAgentsOnce();
 			updateCurrentBest();
@@ -120,7 +113,7 @@ public class Coordinator {
 	/**
 	 * Initializes the coordinator by producing an initial best knapsack with a greedy algorithm.
 	 */
-	private void initialize() {
+	private void initializeCurrentBest() {
 		Agent agent = new Agent(new RandomSearch(), initialKnapsack);
 		agent.executeOnce();
 		currentBestKnapsack = agent.getCurrentSolution();

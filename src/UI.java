@@ -1,3 +1,5 @@
+import hybridation.CoordinatorMode;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -48,7 +50,7 @@ public class UI {
 
 				// Launches the execution
 				if (option != EXIT_OPTION) {
-					Launcher.launchOneInstance(instances.get(option-1));
+					Launcher.launchOneInstance(CoordinatorMode.COOPERATIVE, instances.get(option-1));
 				}
 			} while (option != EXIT_OPTION);
 		} catch (Exception e) {
